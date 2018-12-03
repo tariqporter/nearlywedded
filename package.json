@@ -1,29 +1,25 @@
 {
-  "name": "node-js-getting-started",
-  "version": "0.3.0",
-  "description": "A sample Node.js app using Express 4",
-  "engines": {
-    "node": "10.x"
-  },
-  "main": "index.js",
-  "scripts": {
-    "start": "node index.js"
-  },
+  "name": "nearlywedded",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
-    "ejs": "^2.5.6",
-    "express": "^4.15.2"
+    "react": "^16.6.3",
+    "react-dom": "^16.6.3",
+    "react-scripts": "2.1.1"
   },
-  "devDependencies": {
-    "request": "^2.81.0"
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/heroku/node-js-getting-started"
+  "eslintConfig": {
+    "extends": "react-app"
   },
-  "keywords": [
-    "node",
-    "heroku",
-    "express"
-  ],
-  "license": "MIT"
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
