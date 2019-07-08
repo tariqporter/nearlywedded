@@ -4,7 +4,7 @@ export default class Header extends PureComponent {
   render() {
     return (
       <div>
-        <h1>Test</h1>
+        <h1>Tariq &amp; Irina</h1>
       </div>
     );
   }
