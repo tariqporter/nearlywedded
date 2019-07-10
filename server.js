@@ -12,9 +12,27 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.get('/events', async (req, res) => {
   const data = {
     events: [
-      { id: 0, title: 'Cocktail Reception', date: 'Friday, September 4, 2020', time: '2 PM - 4:30 PM', description: 'Arrive early and have some drinks and relax.' },
-      { id: 1, title: 'Wedding Ceremony', date: 'Friday, September 4, 2020', time: '4:30 PM - 5 PM', description: 'This is the ceremony.' },
-      { id: 2, title: 'Wedding Reception', date: 'Friday, September 4, 2020', time: '5 PM - 11 PM', description: 'Following the ceremony, we look forward to continuing the celebration with dinner and dancing.' }
+      {
+        id: 0,
+        title: 'Wedding Ceremony on site',
+        location: '',
+        time: '5:30 PM - 6 PM',
+        description: 'Make sure to get here by 5 PM'
+      },
+      {
+        id: 1,
+        title: 'Cocktail hour',
+        location: 'Old Barn & Garden Area',
+        time: '6 PM - 7 PM',
+        description: 'Following the ceremony, grab yoursel a drink and explore the barn and garden'
+      },
+      {
+        id: 2,
+        title: 'Sit-down dinner',
+        location: 'Reception Barn',
+        time: '7 PM - 11 PM',
+        description: 'Get your dinner on!'
+      }
     ]
   };
   return res.json(data);

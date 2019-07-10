@@ -8,9 +8,12 @@ import { withStyles } from '@material-ui/core';
 
 const styles = {
   root: {
+    background: 'url(img/pink_rice.png)',
     display: 'flex',
     flexDirection: 'column',
-    textAlign: 'center'
+    textAlign: 'center',
+    alignItems: 'center',
+    height: '100%'
   }
 };
 

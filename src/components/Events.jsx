@@ -6,7 +6,22 @@ import { getEventsAction } from '../actions';
 
 export const styles = {
   root: {
+    fontFamily: "'Quattrocento', serif",
+  },
+  event: {
+    display: 'flex',
+    margin: '40px 0',
+    textAlign: 'left'
+  },
+  eventLeft: {
+    flex: '0 0 250px'
+  },
+  eventRight: {
 
+  },
+  eventTitle: {
+    marginTop: 0,
+    textTransform: 'uppercase'
   }
 };
 
@@ -22,11 +37,15 @@ class Events extends PureComponent {
       <div className={classes.root}>
         {
           events.map(event => (
-            <div key={event.id}>
-              <div>{event.title}</div>
-              <div>{event.date}</div>
-              <div>{event.time}</div>
-              <div>{event.description}</div>
+            <div key={event.id} className={classes.event}>
+              <div className={classes.eventLeft}>
+                <div>{event.time}</div>
+                <div>{event.location}</div>
+              </div>
+              <div>
+                <h4 className={classes.eventTitle}>{event.title}</h4>
+                <div>{event.description}</div>
+              </div>
             </div>
           ))
         }

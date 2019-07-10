@@ -5,13 +5,14 @@ const styles = {
   root: {
     fontFamily: "'Quattrocento', serif",
     background: 'url(img/pink_rice.png)',
-    backgroundSize: '200px auto',
+    // backgroundSize: '200px auto',
     borderBottom: '1px solid #000000',
     textTransform: 'uppercase',
     letterSpacing: 4,
     position: 'sticky',
     top: 0,
-    height: 110
+    height: 110,
+    width: '100%'
   },
   title: {
     margin: '5px 0'
