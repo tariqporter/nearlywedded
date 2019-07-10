@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { getEventsAction, getUserAction } from './actions';
 import Events from './components/Events';
 import { withStyles } from '@material-ui/core';
+import qs from 'query-string';
 
 const styles = {
   root: {
@@ -35,8 +36,8 @@ class App extends PureComponent {
   }
 
   componentDidMount = () => {
-    const { match, getUser } = this.props;
-    const { userId } = match.params;
+    const { location, getUser } = this.props;
+    const userId = qs.parse(location.search).userid;
     if (userId) {
       getUser(userId);
     }

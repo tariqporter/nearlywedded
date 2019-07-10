@@ -10,7 +10,6 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ACTION.SET_USER: {
-      console.log(action.user)
       return { ...state, user: action.user || initialState.user };
     }
     case ACTION.SET_EVENTS: {
