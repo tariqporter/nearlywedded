@@ -24,7 +24,7 @@ app.get('/events', async (req, res) => {
         title: 'Cocktail hour',
         location: 'Old Barn & Garden Area',
         time: '6 PM - 7 PM',
-        description: 'Following the ceremony, grab yoursel a drink and explore the barn and garden'
+        description: 'Following the ceremony, grab yourself a drink and explore the barn and garden'
       },
       {
         id: 2,
