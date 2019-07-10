@@ -37,7 +37,7 @@ class App extends PureComponent {
         <div>
           <div style={{ height: '100%', marginTop: 20, position: 'relative' }}>
             <div alt="Holly Hedge" className={classes.img} />
-            <a href="https://www.hollyhedge.com/" className={classes.link}>Holly Hedge Estate</a>
+            <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>Holly Hedge Estate</a>
           </div>
           <Events />
         </div>
