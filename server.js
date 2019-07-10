@@ -1,5 +1,5 @@
 const express = require('express');
-// const path = require('path');
+const path = require('path');
 // const { Pool } = require('pg');
 
 // const pool = new Pool({
@@ -7,7 +7,7 @@ const express = require('express');
 // });
 
 const app = express();
-// app.use(express.static(path.join(__dirname, 'build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/data/events', async (req, res) => {
   const data = {
