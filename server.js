@@ -7,7 +7,6 @@ const path = require('path');
 // });
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
 
 app.get('/data/events', async (req, res) => {
   const data = {
@@ -46,6 +45,8 @@ app.get('/data/user/:userId', async (req, res) => {
   };
   return res.json({ user: users[userId] });
 });
+
+app.use(express.static(path.join(__dirname, 'build')));
 
 // app.get('/venues', async (req, res) => {
 //   const client = await pool.connect()
