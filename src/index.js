@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import { Provider } from 'react-redux';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
@@ -14,7 +15,9 @@ export const store = createStore(rootReducer, compose(
 
 const Index = () => (
   <Provider store={store}>
-    <App />
+    <BrowserRouter>
+      <Route exact path="/:userId?" component={App} />
+    </BrowserRouter>
   </Provider>
 );
 

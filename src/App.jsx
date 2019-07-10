@@ -1,8 +1,8 @@
 import React, { PureComponent } from 'react';
 import Header from './components/Header';
-// import MapBox from './components/MapBox';
-// import { connect } from 'react-redux';
-// import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getEventsAction, getUserAction } from './actions';
 import Events from './components/Events';
 import { withStyles } from '@material-ui/core';
 
@@ -16,7 +16,7 @@ const styles = {
     height: '100%'
   },
   img: {
-    background: 'url(img/SLIDER-holly-hedge-wedding-country-romantic-fieldstone-barn-fountain-flowers-nighttime-beautiful1.jpg)',
+    background: 'url(/img/SLIDER-holly-hedge-wedding-country-romantic-fieldstone-barn-fountain-flowers-nighttime-beautiful1.jpg)',
     height: '250px',
     backgroundSize: 'cover'
   },
@@ -29,6 +29,19 @@ const styles = {
 };
 
 class App extends PureComponent {
+  constructor(props) {
+    super(props);
+    props.getEvents();
+  }
+
+  componentDidMount = () => {
+    const { match, getUser } = this.props;
+    const { userId } = match.params;
+    if (userId) {
+      getUser(userId);
+    }
+  }
+
   render() {
     const { classes } = this.props;
     return (
@@ -46,20 +59,19 @@ class App extends PureComponent {
   }
 }
 
-export default withStyles(styles)(App);
+const mapStateToProps = (state) => {
+  const { events } = state;
+  return {
+    events
+  }
+}
 
-// const mapStateToProps = (state) => {
-//   // const { center, zoom } = state;
-//   return {
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
+  getEvents: getEventsAction,
+  getUser: getUserAction
+}, dispatch);
 
-//   }
-// }
-
-// const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
-
-// }, dispatch);
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withStyles(styles)(App));

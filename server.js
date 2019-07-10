@@ -1,5 +1,5 @@
 const express = require('express');
-const path = require('path');
+// const path = require('path');
 // const { Pool } = require('pg');
 
 // const pool = new Pool({
@@ -7,9 +7,9 @@ const path = require('path');
 // });
 
 const app = express();
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
-app.get('/events', async (req, res) => {
+app.get('/data/events', async (req, res) => {
   const data = {
     events: [
       {
@@ -36,6 +36,15 @@ app.get('/events', async (req, res) => {
     ]
   };
   return res.json(data);
+});
+
+app.get('/data/user/:userId', async (req, res) => {
+  const { userId } = req.params;
+  const users = {
+    '8b10131a-5eb1-4095-b441-59bddb9d6134': { id: '8b10131a-5eb1-4095-b441-59bddb9d6134', firstName: 'Tariq', lastName: 'Porter' },
+    '95abc15b-0be6-4d2c-ada8-6332abbdbc7c': { id: '95abc15b-0be6-4d2c-ada8-6332abbdbc7c', firstName: 'Irina', lastName: 'Zamyatin' }
+  };
+  return res.json({ user: users[userId] });
 });
 
 // app.get('/venues', async (req, res) => {

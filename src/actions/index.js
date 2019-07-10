@@ -1,17 +1,14 @@
 import axios from 'axios';
 
 export const ACTION = {
-  SET_EVENTS: 'SET_EVENTS'
-  // GET_VENUES: 'GET_VENUES',
-  // SET_VENUES: 'SET_VENUES',
-  // MAPGL_SETUP_MAP: 'MAPGL_SETUP_MAP',
+  SET_EVENTS: 'SET_EVENTS',
+  SET_USER: 'SET_USER'
 };
 
 export const getEventsAction = () => {
   return dispatch => {
-    axios.get('/events')
+    return axios.get('/data/events')
       .then((response) => {
-        // console.log(response);
         const { events } = response.data;
         dispatch({
           type: ACTION.SET_EVENTS,
@@ -20,24 +17,16 @@ export const getEventsAction = () => {
       })
       .catch(err => console.log(err));
   };
-}
+};
 
-// export const getVenuesAction = () => {
-//   return dispatch => {
-//     axios.get('/venues')
-//       .then((response) => {
-//         console.log(response);
-//         const { venues } = response.data;
-//         dispatch({
-//           type: ACTION.SET_VENUES,
-//           venues
-//         });
-//       })
-//       .catch(err => console.log(err));
-//   };
-// }
-
-// export const setupMapAction = (map) => ({
-//   type: ACTION.MAPGL_SETUP_MAP,
-//   map
-// })
+export const getUserAction = userId => dispatch => {
+  return axios.get(`/data/user/${userId}`)
+    .then((response) => {
+      const { user } = response.data;
+      dispatch({
+        type: ACTION.SET_USER,
+        user
+      });
+    })
+    .catch(err => console.log(err));
+};

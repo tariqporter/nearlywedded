@@ -36,16 +36,12 @@ const styles = {
   },
   eventTitle: {
     marginTop: 0,
-    textTransform: 'uppercase'
+    textTransform: 'uppercase',
+    letterSpacing: 1.5
   }
 };
 
 class Events extends PureComponent {
-  constructor(props) {
-    super(props);
-    props.getEvents();
-  }
-
   render() {
     const { classes, events } = this.props;
     return (
