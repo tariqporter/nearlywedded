@@ -3,7 +3,8 @@ import ReactDOM from 'react-dom';
 import './index.scss';
 import App from './App';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';import thunk from 'redux-thunk';
+import { createStore, applyMiddleware, compose } from 'redux';
+import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
 
@@ -12,7 +13,9 @@ export const store = createStore(rootReducer, compose(
 ));
 
 const Index = () => (
-  <Provider store={store}><App /></Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
 
 ReactDOM.render(<Index />, document.getElementById('root'));

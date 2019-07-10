@@ -23,10 +23,10 @@ class Events extends PureComponent {
         {
           events.map(event => (
             <div key={event.id}>
-              <div>{ event.title }</div>
-              <div>{ event.date }</div>
-              <div>{ event.time }</div>
-              <div>{ event.description }</div>
+              <div>{event.title}</div>
+              <div>{event.date}</div>
+              <div>{event.time}</div>
+              <div>{event.description}</div>
             </div>
           ))
         }
@@ -42,11 +42,9 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return bindActionCreators({
-    getEvents: getEventsAction,
-  }, dispatch);
-}
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
+  getEvents: getEventsAction,
+}, dispatch);
 
 export default connect(
   mapStateToProps,

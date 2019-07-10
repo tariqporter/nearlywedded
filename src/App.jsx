@@ -1,15 +1,24 @@
 import React, { PureComponent } from 'react';
 import Header from './components/Header';
 // import MapBox from './components/MapBox';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+// import { connect } from 'react-redux';
+// import { bindActionCreators } from 'redux';
 import Events from './components/Events';
+import { withStyles } from '@material-ui/core';
+
+const styles = {
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+    textAlign: 'center'
+  }
+};
 
 class App extends PureComponent {
-
   render() {
+    const { classes } = this.props;
     return (
-      <div className="app">
+      <div className={classes.root}>
         <Header />
         <Events />
       </div>
@@ -17,18 +26,20 @@ class App extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
-  // const { center, zoom } = state;
-  return {
+export default withStyles(styles)(App);
 
-  }
-}
+// const mapStateToProps = (state) => {
+//   // const { center, zoom } = state;
+//   return {
 
-const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
+//   }
+// }
+
+// const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
     
-}, dispatch);
+// }, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App);
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App);
