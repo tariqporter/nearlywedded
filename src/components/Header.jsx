@@ -5,8 +5,7 @@ const styles = {
   root: {
     fontFamily: "'Quattrocento', serif",
     background: 'url(img/pink_rice.png)',
-    // backgroundSize: '200px auto',
-    borderBottom: '1px solid #000000',
+    borderBottom: '1px solid #999',
     textTransform: 'uppercase',
     letterSpacing: 4,
     position: 'sticky',
