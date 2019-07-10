@@ -17,11 +17,11 @@ const styles = {
     display: 'flex'
   },
   titleContainer: {
-    margin: 'auto',
-    transform: 'translateX(-50%)'
+    margin: 'auto'
   },
   welcomeContainer: {
     alignSelf: 'center',
+    position: 'absolute',
     padding: 10
   },
   title: {
