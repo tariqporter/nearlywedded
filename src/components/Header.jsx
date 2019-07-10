@@ -12,7 +12,8 @@ const styles = {
     position: 'sticky',
     top: 0,
     height: 110,
-    width: '100%'
+    width: '100%',
+    zIndex: 1
   },
   title: {
     margin: '5px 0'
