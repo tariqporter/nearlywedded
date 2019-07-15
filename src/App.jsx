@@ -17,8 +17,8 @@ const styles = {
     height: '100%'
   },
   img: {
-    background: 'url(/img/SLIDER-holly-hedge-wedding-country-romantic-fieldstone-barn-fountain-flowers-nighttime-beautiful1.jpg)',
-    height: '250px',
+    background: 'url(/img/SLIDER-holly-hedge-wedding-country-romantic-fieldstone-barn-fountain-flowers-nighttime-beautiful1.jpg) 50% 50%',
+    height: '300px',
     backgroundSize: 'cover'
   },
   link: {
@@ -49,7 +49,7 @@ class App extends PureComponent {
       <div className={classes.root}>
         <Header />
         <div>
-          <div style={{ height: '100%', marginTop: 20, position: 'relative' }}>
+          <div style={{ marginTop: 20, position: 'relative' }}>
             <div alt="Holly Hedge" className={classes.img} />
             <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>Holly Hedge Estate</a>
           </div>

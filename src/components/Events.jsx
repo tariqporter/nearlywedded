@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Grid } from '@material-ui/core';
 import { getEventsAction } from '../actions';
 
 const styles = {
@@ -9,7 +9,7 @@ const styles = {
     fontFamily: "'Quattrocento', serif",
   },
   event: {
-    display: 'flex',
+    // display: 'flex',
     margin: '20px 0',
     padding: 10,
     textAlign: 'left',
@@ -48,16 +48,16 @@ class Events extends PureComponent {
       <div className={classes.root}>
         {
           events.map(event => (
-            <div key={event.id} className={classes.event}>
-              <div className={classes.eventLeft}>
+            <Grid container key={event.id} className={classes.event}>
+              <Grid item xs={12} md={6} className={classes.eventLeft1}>
                 <div>{event.time}</div>
                 <div>{event.location}</div>
-              </div>
-              <div>
+              </Grid>
+              <Grid item xs={12} md={6}>
                 <h4 className={classes.eventTitle}>{event.title}</h4>
                 <div>{event.description}</div>
-              </div>
-            </div>
+              </Grid>
+            </Grid>
           ))
         }
       </div>
