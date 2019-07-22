@@ -15,8 +15,8 @@ app.get('/data/events', async (req, res) => {
         id: 0,
         title: 'Wedding Ceremony on site',
         location: '',
-        time: '5:30 PM - 6 PM',
-        description: 'Make sure to get here by 5 PM'
+        time: '5 PM - 6 PM',
+        description: 'Ceremony will start at 5:30 PM so be early!'
       },
       {
         id: 1,
