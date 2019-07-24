@@ -3,7 +3,7 @@ import { withStyles } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-const styles = {
+const styles = theme => ({
   root: {
     fontFamily: "'Quattrocento', serif",
     borderBottom: '1px solid #999',
@@ -12,10 +12,12 @@ const styles = {
     letterSpacing: 4,
     position: 'sticky',
     top: 0,
-    height: 110,
     width: '100%',
     zIndex: 1,
-    display: 'flex'
+    display: 'flex',
+    [theme.breakpoints.down('sm')]: {
+      flexDirection: 'column'
+    },
   },
   titleContainer: {
     margin: 'auto'
@@ -23,7 +25,10 @@ const styles = {
   welcomeContainer: {
     alignSelf: 'center',
     position: 'absolute',
-    padding: 10
+    padding: 10,
+    [theme.breakpoints.down('sm')]: {
+      position: 'relative'
+    },
   },
   title: {
     margin: '5px 0'
@@ -34,7 +39,7 @@ const styles = {
   cursive: {
     fontFamily: "'Cedarville Cursive', cursive"
   }
-};
+});
 
 class Header extends PureComponent {
   render() {

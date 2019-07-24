@@ -9,7 +9,6 @@ const styles = {
     fontFamily: "'Quattrocento', serif",
   },
   event: {
-    // display: 'flex',
     margin: '20px 0',
     padding: 10,
     textAlign: 'left',
