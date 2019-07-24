@@ -44,11 +44,7 @@ class App extends PureComponent {
   }
 
   render() {
-    const { classes } = this.props;
-    const date1 = new Date('9/4/2020');
-    const date2 = new Date();
-    const diffTime = Math.abs(date2.getTime() - date1.getTime());
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)); 
+    const { classes, daysUntilWedding } = this.props;
     return (
       <div className={classes.root}>
         <Header />
@@ -58,7 +54,7 @@ class App extends PureComponent {
             <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>Holly Hedge Estate</a>
           </div>
           <Events />
-          <div style={{ fontWeight: 'bold' }}>See you in { diffDays } days!</div>
+          <div style={{ fontWeight: 'bold' }}>See you in { daysUntilWedding } days!</div>
         </div>
       </div>
     );
@@ -66,9 +62,10 @@ class App extends PureComponent {
 }
 
 const mapStateToProps = (state) => {
-  const { events } = state;
+  const { events, daysUntilWedding } = state;
   return {
-    events
+    events,
+    daysUntilWedding
   }
 }
 
