@@ -32,6 +32,9 @@ const styles = theme => ({
     bottom: 5,
     right: 5,
     color: '#fff'
+  },
+  countdown: {
+    fontWeight: 'bold'
   }
 });
 
@@ -60,7 +63,7 @@ class App extends PureComponent {
             <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>Holly Hedge Estate</a>
           </div>
           <Events />
-          <div style={{ fontWeight: 'bold' }}>See you in { daysUntilWedding } days!</div>
+          <div className={classes.countdown}>See you in { daysUntilWedding } days!</div>
         </div>
       </div>
     );
