@@ -13,7 +13,7 @@ deploy:
     project: 'staging-nearlywedded'
     skip_cleanup: true
     on:
-      branch: master
+      branch: "master"
   - provider: firebase
     project: 'nearlywedded-28143'
     skip_cleanup: true
