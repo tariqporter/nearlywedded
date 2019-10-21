@@ -1,5 +1,3 @@
-#!/bin/bash
-
 FILE="./.env"
 
 if [[ $TRAVIS_BRANCH == 'production' ]]; then
