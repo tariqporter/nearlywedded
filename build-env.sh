@@ -1,4 +1,4 @@
-FILE="./.env"
+FILE="./.env.production"
 
 if [[ $TRAVIS_BRANCH == 'production' ]]; then
 cat <<EOM >$FILE
