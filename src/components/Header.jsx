@@ -50,7 +50,7 @@ class Header extends PureComponent {
           {
             user.id &&
             <div>
-              <span>Welcome { user.firstName } { user.lastName }!</span>
+              <span>Welcome { user.name }!</span>
             </div>
           }
         </div>

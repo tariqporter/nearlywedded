@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "prod": "nearlywedded-28143",
+    "qa": "staging-nearlywedded"
+  }
+}
