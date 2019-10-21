@@ -6,13 +6,13 @@ branches:
 before_install: "./build-env.sh"
 deploy:
   - provider: firebase
-  project: "staging-nearlywedded"
-  on:
-    branch: master
+    project: "staging-nearlywedded"
+    on:
+      branch: master
   - provider: firebase
-  project: "nearlywedded-28143"
-  on:
-    branch: production
+    project: "nearlywedded-28143"
+    on:
+      branch: production
 env:
   master: 
     - REACT_APP_API_PATH=https://us-central1-staging-nearlywedded.cloudfunctions.net/api/
