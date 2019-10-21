@@ -3,7 +3,9 @@ branches:
   only:
     - master
     - production
-before_install: "./build-env.sh"
+before_install:
+  - chmod +x ./build-env.sh
+  - ./build-env.sh
 deploy:
   - provider: firebase
     project: "staging-nearlywedded"
