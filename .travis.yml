@@ -3,6 +3,8 @@ script:
   - yarn test
   - yarn build:qa
   - git add .
+  - cd ./functions
+  - yarn
 deploy:
   provider: firebase
   project: "staging-nearlywedded"
