@@ -1,1 +1,1 @@
-echo "=========== $TRAVIS_BRANCH ENV ==========="
+echo "=========== $TRAVIS_BRANCH ENV $REACT_APP_API_PATH ==========="
