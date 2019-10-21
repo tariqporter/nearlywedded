@@ -3,3 +3,5 @@ script:
 deploy:
   provider: firebase
   project: "staging-nearlywedded"
+on:
+  all_branches: true
