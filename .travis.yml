@@ -4,7 +4,7 @@ script:
   - yarn build:qa
   - git add .
   - cd ./functions
-  - yarn
+  - npm install
 deploy:
   provider: firebase
   project: "staging-nearlywedded"
