@@ -1,5 +1,3 @@
-FILE="./.env.production"
-
 if [[ $TRAVIS_BRANCH == 'production' ]]; then
 cat <<EOM >$FILE
 REACT_APP_API_KEY=AIzaSyCyWpKCSFYD4RW5MAbYbEdfhoUiDt6trkE
