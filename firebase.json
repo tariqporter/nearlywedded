@@ -18,5 +18,8 @@
     ]
   },
   "functions": {
+    "predeploy": [
+      "npm install"
+    ]
   }
 }
