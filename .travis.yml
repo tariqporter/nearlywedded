@@ -1,1 +1,4 @@
 language: node_js
+deploy:
+  provider: firebase
+  project: "staging-nearlywedded"
