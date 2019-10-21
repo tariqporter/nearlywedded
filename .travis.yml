@@ -5,6 +5,7 @@ script:
   - git add .
   - cd ./functions
   - npm install
+  - cd ../
 deploy:
   provider: firebase
   project: "staging-nearlywedded"
