@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import Header from './components/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -38,36 +38,37 @@ const styles = theme => ({
   }
 });
 
-class App extends PureComponent {
-  constructor(props) {
-    super(props);
-    props.getEvents();
-  }
+const App = ({
+  classes = '',
+  daysUntilWedding = null,
+  location = {},
+  getUser = () => { },
+  getEvents = () => { }
+}) => {
+  useEffect(() => {
+    getEvents();
+  });
 
-  componentDidMount = () => {
-    const { location, getUser } = this.props;
+  useEffect(() => {
     const userId = qs.parse(location.search).userid;
     if (userId) {
       getUser(userId);
     }
-  }
+  }, [location]);
 
-  render() {
-    const { classes, daysUntilWedding } = this.props;
-    return (
-      <div className={classes.root}>
-        <Header />
-        <div className={classes.body}>
-          <div style={{ marginTop: 20, position: 'relative' }}>
-            <div alt="Holly Hedge" className={classes.img} />
-            <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>Holly Hedge Estate</a>
-          </div>
-          <Events />
-          <div className={classes.countdown}>See you in { daysUntilWedding } days!</div>
+  return (
+    <div className={classes.root}>
+      <Header />
+      <div className={classes.body}>
+        <div style={{ marginTop: 20, position: 'relative' }}>
+          <div alt="Holly Hedge" className={classes.img} />
+          <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>Holly Hedge Estate</a>
         </div>
+        <Events />
+        <div className={classes.countdown}>See you in {daysUntilWedding} days!</div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 const mapStateToProps = (state) => {

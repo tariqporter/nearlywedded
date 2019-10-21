@@ -11,12 +11,12 @@ serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://nearlywedded-28143.firebaseio.com"
+  databaseURL: serviceAccount.databaseurl
 });
 const db = admin.firestore();
 
 // Automatically allow cross-origin requests
-app.use(cors({ origin: true }));
+app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
 
 app.get('/data/events/', async (req, res) => {
   const data1 = await db.collection('events').get();
