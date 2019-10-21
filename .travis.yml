@@ -1,4 +1,5 @@
 language: node_js
+cache: false
 branches:
   only:
     - master
@@ -6,17 +7,16 @@ branches:
 before_install:
   - chmod +x ./build-env.sh
   - ./build-env.sh
+  - yarn
+  - yarn build
 deploy:
   - provider: firebase
     project: "staging-nearlywedded"
+    skip_cleanup: true
     on:
       branch: master
   - provider: firebase
     project: "nearlywedded-28143"
+    skip_cleanup: true
     on:
       branch: production
-env:
-  master: 
-    - REACT_APP_API_PATH=https://us-central1-staging-nearlywedded.cloudfunctions.net/api/
-  production:
-    - REACT_APP_API_PATH=https://us-central1-nearlywedded-28143.cloudfunctions.net/api/
