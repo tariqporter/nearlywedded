@@ -5,3 +5,8 @@ deploy:
   project: "staging-nearlywedded"
   on:
     all_branches: true
+env:
+  master: 
+    - REACT_APP_API_PATH=https://us-central1-staging-nearlywedded.cloudfunctions.net/api/
+  production:
+    - REACT_APP_API_PATH=https://us-central1-nearlywedded-28143.cloudfunctions.net/api/
