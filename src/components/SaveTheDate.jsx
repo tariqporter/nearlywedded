@@ -51,7 +51,7 @@ const SaveTheDate = ({
       <MuiThemeProvider theme={theme}>
         <Paper className={classes.body} square={true}>
           <Typography variant="h6" component="h6">
-            { user.id ? `To ${user.name} ` : '' }
+            { user.id ? `${user.name} ` : '' }
           </Typography>
           <Typography variant="h5" component="h5">
             Please Save the Date
