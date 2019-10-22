@@ -56,8 +56,8 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
     saveDateViewDates: admin.firestore.FieldValue.arrayUnion(new Date())
   });
 
-  const data2 = doc.data();
-  const saveDateViewDatesLength = data2.saveDateViewDates.length + 1;
+  const data1 = doc.data();
+  const saveDateViewDatesLength = data1.saveDateViewDates.length + 1;
   return res.json({ saveDateViewDatesLength });
 });
 

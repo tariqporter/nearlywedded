@@ -22,7 +22,8 @@ const admin = {
               data: () => {
                 const { id, ...other } = doc;
                 return other;
-              }
+              },
+              exists: true
             };
           });
           resolve({ docs });
@@ -33,7 +34,7 @@ const admin = {
             get: () => {
               const docPromise = get(collections[collection].filter(doc => doc.id === id));
               return docPromise.then(({ docs }) => {
-                return docs[0] || { id: null, data: () => null };
+                return docs[0] || { id: null, data: () => null, exists: false };
               })
             },
             update: () => { }
