@@ -35,7 +35,7 @@ app.get('/data/events/', async (req, res) => {
 app.get('/data/user/:userId/', async (req, res) => {
   const { userId } = req.params;
   const ref = db.collection('users').doc(userId);
-  const doc = ref.get();
+  const doc = await ref.get();
   if (!doc.exists) {
     return res.json({ user: { id: null} });
   }
