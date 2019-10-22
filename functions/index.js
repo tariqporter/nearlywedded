@@ -23,7 +23,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Automatically allow cross-origin requests
-app.use(cors({ origin: '*', optionsSuccessStatus: 200 }));
+app.use(cors({ origin: true }));
 
 // app.use((req, res, next) => {
 //   res.header("Access-Control-Allow-Origin", "*");
@@ -63,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 //   res.json(results);
 // });
 
-app.listen(process.env.PORT || 8080);
+// app.listen(process.env.PORT || 8080);
 
 const api = functions.https.onRequest(app);
 
