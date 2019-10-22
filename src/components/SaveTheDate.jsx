@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getUserAction } from '../actions';
+import { getUserAction, updateSaveTheDateViewsAction } from '../actions';
 import { withStyles, Paper, Typography } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import qs from 'query-string';
@@ -43,13 +43,15 @@ const SaveTheDate = (props) => {
     user,
     classes = '',
     location = {},
-    getUser = () => { }
+    getUser,
+    updateSaveTheDateViews
   } = props;
 
   useEffect(() => {
     const userId = qs.parse(location.search).userid;
     if (userId) {
       getUser(userId);
+      updateSaveTheDateViews(userId);
     }
   }, [location]);
 
@@ -85,7 +87,8 @@ const mapStateToProps = ({ user }) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
-  getUser: getUserAction
+  getUser: getUserAction,
+  updateSaveTheDateViews: updateSaveTheDateViewsAction
 }, dispatch);
 
 export default connect(

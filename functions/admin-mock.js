@@ -35,7 +35,8 @@ const admin = {
               return docPromise.then(({ docs }) => {
                 return docs[0] || { id: null, data: () => null };
               })
-            }
+            },
+            update: () => { }
           }),
           get: () => get(collections[collection])
         }

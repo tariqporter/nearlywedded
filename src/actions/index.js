@@ -30,3 +30,8 @@ export const getUserAction = userId => dispatch => {
     })
     .catch(err => console.log(err));
 };
+
+export const updateSaveTheDateViewsAction = userId => dispatch => {
+  return axios.post(process.env.REACT_APP_API_PATH + `data/user/saveTheDateViews/${userId}/`)
+    .catch(err => console.log(err));
+}
