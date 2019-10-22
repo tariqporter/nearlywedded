@@ -10,6 +10,9 @@ import clsx from 'clsx';
 const theme = createMuiTheme({
   typography: {
     fontFamily: "'Quattrocento', serif",
+    h5: {
+      fontWeight: 600
+    },
     subtitle1: {
       fontWeight: 600
     }
@@ -50,15 +53,6 @@ const styles = theme => ({
     width: 300,
     margin: '0 auto auto auto'
   },
-  // paperBackground: {
-  //   background: 'url(/img/pink_rice_transparent.png)',
-  //   opacity: 1,
-  //   width: '100%',
-  //   height: '100%',
-  //   position: 'absolute',
-  //   top: 0,
-  //   left: 0
-  // },
   title: {
     margin: '5px 0',
     lineHeight: '1em'
