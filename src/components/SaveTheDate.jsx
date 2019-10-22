@@ -10,6 +10,9 @@ import clsx from 'clsx';
 const theme = createMuiTheme({
   typography: {
     fontFamily: "'Quattrocento', serif",
+    subtitle1: {
+      fontWeight: 600
+    }
   }
 });
 
@@ -26,7 +29,7 @@ const styles = theme => ({
     margin: '20px auto',
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 700
+      width: 600
     }
   },
   divider: {
@@ -42,17 +45,20 @@ const styles = theme => ({
   },
   paperContent: {
     padding: 15,
-    position: 'relative'
+    position: 'relative',
+    background: 'url(/img/pink_rice_transparent.png)',
+    width: 300,
+    margin: '0 auto auto auto'
   },
-  paperBackground: {
-    background: 'url(/img/pink_rice.png)',
-    opacity: 1,
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    top: 0,
-    left: 0
-  },
+  // paperBackground: {
+  //   background: 'url(/img/pink_rice_transparent.png)',
+  //   opacity: 1,
+  //   width: '100%',
+  //   height: '100%',
+  //   position: 'absolute',
+  //   top: 0,
+  //   left: 0
+  // },
   title: {
     margin: '5px 0',
     lineHeight: '1em'
@@ -85,7 +91,6 @@ const SaveTheDate = (props) => {
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
         <Paper className={clsx(classes.body, classes.img)} square={true}>
-          {/* <div className={classes.paperBackground} style={{ zIndex: -1 }} /> */}
           <div className={classes.paperContent}>
             <h1 className={classes.title}>Tariq <span className={classes.cursive}>&amp;</span> Irina</h1>
             {/* <Typography variant="h6">
