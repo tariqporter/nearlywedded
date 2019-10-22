@@ -4,7 +4,7 @@ import './index.scss';
 import App from './App';
 import SaveTheDate from './components/SaveTheDate';
 import { Provider } from 'react-redux';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
@@ -17,8 +17,10 @@ export const store = createStore(rootReducer, compose(
 const Index = () => (
   <Provider store={store}>
     <BrowserRouter>
-      <Route exact path="/:userId?" component={App} />
-      <Route exact path="/save-the-date/:userId?" component={SaveTheDate} />
+      <Switch>
+        <Route exact path="/save-the-date/:userId?" render={props => <SaveTheDate {...props} />} />
+        <Route path="/:userId?" render={props => <App {...props} />} />
+      </Switch>
     </BrowserRouter>
   </Provider>
 );
