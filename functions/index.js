@@ -34,21 +34,30 @@ app.get('/data/events/', async (req, res) => {
 
 app.get('/data/user/:userId/', async (req, res) => {
   const { userId } = req.params;
-  const data1 = await db.collection('users').doc(userId).get();
-  const data2 = data1.data();
-  const user = data2 ? { id: data1.id, ...data2 } : null;
+  const ref = db.collection('users').doc(userId);
+  const doc = ref.get();
+  if (!doc) {
+    return { user: { id: null} };
+  }
+  const data1 = doc.data();
+  const user = { id: doc.id, ...data1 };
   return res.json({ user });
 });
 
 app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   const { userId } = req.params;
-  const doc = db.collection('users').doc(userId);
-  await doc.update({
+  const ref = db.collection('users').doc(userId);
+  const doc = await ref.get();
+  if (!doc) {
+    return { saveDateViewDatesLength: -1 };
+  }
+
+  ref.update({
     saveDateViewDates: admin.firestore.FieldValue.arrayUnion(new Date())
   });
-  const data1 = await doc.get();
-  const data2 = data1.data();
-  const saveDateViewDatesLength = data2 ? data2.saveDateViewDates.length : -1;
+
+  const data2 = doc.data();
+  const saveDateViewDatesLength = data2.saveDateViewDates.length + 1;
   return res.json({ saveDateViewDatesLength });
 });
 
