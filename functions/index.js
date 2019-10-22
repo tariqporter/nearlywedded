@@ -46,7 +46,7 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   const union = doc.update({
     saveDateViewDates: admin.firestore.FieldValue.arrayUnion(new Date())
   });
-  const saveDateViewDates = await union.get();
+  const saveDateViewDates = await union;
   return res.json({ saveDateViewDates });
 });
 
