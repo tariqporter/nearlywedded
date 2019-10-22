@@ -36,7 +36,7 @@ app.get('/data/user/:userId/', async (req, res) => {
   const { userId } = req.params;
   const ref = db.collection('users').doc(userId);
   const doc = ref.get();
-  if (!doc) {
+  if (!doc.exists) {
     return { user: { id: null} };
   }
   const data1 = doc.data();
@@ -48,7 +48,7 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   const { userId } = req.params;
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
-  if (!doc) {
+  if (!doc.exists) {
     return { saveDateViewDatesLength: -1 };
   }
 
