@@ -30,6 +30,9 @@ const styles = theme => ({
       fontFamily: "'Cedarville Cursive', cursive",
     }
   },
+  divider: {
+    lineHeight: .5
+  }
 });
 
 const SaveTheDate = ({
@@ -57,7 +60,11 @@ const SaveTheDate = ({
             Please Save the Date
           </Typography>
           <Typography component="p">
-            Friday, September 4, 2020 — Holly Hedge Estate
+            Friday, September 4, 2020
+          </Typography>
+          {/* <div className={classes.divider}>—</div> */}
+          <Typography component="p">
+            Holly Hedge Estate <span className={classes.divider}>—</span> New Hope, PA
           </Typography>
         </Paper>
       </MuiThemeProvider>

@@ -63,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 //   res.json(results);
 // });
 
-// app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080);
 
 const api = functions.https.onRequest(app);
 
