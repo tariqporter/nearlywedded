@@ -5,6 +5,7 @@ import { getUserAction, updateSaveTheDateViewsAction } from '../actions';
 import { withStyles, Paper, Typography } from '@material-ui/core';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import qs from 'query-string';
+import MrAndMrs1 from '../icons/MrAndMrs3';
 import clsx from 'clsx';
 
 const theme = createMuiTheme({
@@ -31,6 +32,7 @@ const styles = theme => ({
     padding: '24px 16px',
     margin: '20px auto',
     width: '100%',
+    position: 'relative',
     [theme.breakpoints.up('sm')]: {
       width: 600
     }
@@ -102,6 +104,7 @@ const SaveTheDate = (props) => {
             </a>
             </Typography>
           </div>
+          <MrAndMrs1 size={120} style={{ position: 'absolute', right: 0, bottom: 0 }} />
         </Paper>
       </MuiThemeProvider>
     </div>
