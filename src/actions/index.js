@@ -20,7 +20,7 @@ export const getEventsAction = () => {
 };
 
 export const getUserAction = userId => dispatch => {
-  return axios.get(process.env.REACT_APP_API_PATH +  + `data/user/${userId}/`)
+  return axios.get(process.env.REACT_APP_API_PATH + `data/user/${userId}/`)
     .then((response) => {
       const { user } = response.data;
       dispatch({

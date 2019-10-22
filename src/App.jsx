@@ -38,13 +38,15 @@ const styles = theme => ({
   }
 });
 
-const App = ({
-  classes = '',
-  daysUntilWedding = null,
-  location = {},
-  getUser = () => { },
-  getEvents = () => { }
-}) => {
+const App = (props) => {
+  const {
+    classes = '',
+    daysUntilWedding = null,
+    location = {},
+    getUser = () => { },
+    getEvents = () => { }
+  } = props;
+
   useEffect(() => {
     getEvents();
   });
@@ -72,9 +74,8 @@ const App = ({
 }
 
 const mapStateToProps = (state) => {
-  const { events, daysUntilWedding } = state;
+  const { daysUntilWedding } = state;
   return {
-    events,
     daysUntilWedding
   }
 }

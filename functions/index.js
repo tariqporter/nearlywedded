@@ -1,13 +1,20 @@
 const functions = require("firebase-functions");
-const admin = require('firebase-admin');
+let admin = require('firebase-admin');
+const adminMock = require('./admin-mock');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 
 const app = express();
-const serviceAccount = functions.config().serviceaccount;
-serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
-// var serviceAccount = env.ENVIRONMENT === 'PRODUCTION' ? require("./service-account.json") : require("./staging-service-account.json");
+let serviceAccount = functions.config().serviceaccount;
+if (serviceAccount) {
+  serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+  // var serviceAccount = env.ENVIRONMENT === 'PRODUCTION' ? require("./service-account.json") : require("./staging-service-account.json");
+}
+else {
+  serviceAccount = {};
+  admin = adminMock;
+}
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -56,7 +63,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 //   res.json(results);
 // });
 
-// app.listen(process.env.PORT || 8080);
+app.listen(process.env.PORT || 8080);
 
 const api = functions.https.onRequest(app);
 

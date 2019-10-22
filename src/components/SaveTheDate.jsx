@@ -2,15 +2,38 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getUserAction } from '../actions';
-import { withStyles } from '@material-ui/core';
+import { withStyles, Paper, Typography } from '@material-ui/core';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import qs from 'query-string';
 
-const styles = theme => ({
-  root: {
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: "'Quattrocento', serif",
   }
 });
 
+const styles = theme => ({
+  root: {
+    display: 'flex',
+    height: '100%',
+    textTransform: 'uppercase',
+    textAlign: 'center'
+  },
+  body: {
+    padding: '24px 16px',
+    margin: '20px auto',
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      width: 700
+    },
+    paper: {
+      fontFamily: "'Cedarville Cursive', cursive",
+    }
+  },
+});
+
 const SaveTheDate = ({
+  user,
   classes = '',
   location = {},
   getUser = () => { },
@@ -25,13 +48,26 @@ const SaveTheDate = ({
 
   return (
     <div className={classes.root}>
-      Save the date!
+      <MuiThemeProvider theme={theme}>
+        <Paper className={classes.body} square={true}>
+          <Typography variant="h6" component="h6">
+            { user.id ? `To ${user.name} ` : '' }
+          </Typography>
+          <Typography variant="h5" component="h5">
+            Please Save the Date
+          </Typography>
+          <Typography component="p">
+            Friday, September 4, 2020 — Holly Hedge Estate
+          </Typography>
+        </Paper>
+      </MuiThemeProvider>
     </div>
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ user }) => {
   return {
+    user
   }
 }
 
