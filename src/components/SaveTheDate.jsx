@@ -64,7 +64,7 @@ const styles = theme => ({
 
 const SaveTheDate = (props) => {
   const {
-    user,
+    // user,
     classes = '',
     location = {},
     getUser,
@@ -111,7 +111,7 @@ const SaveTheDate = (props) => {
 
 const mapStateToProps = ({ user }) => {
   return {
-    user
+    // user
   }
 }
 
