@@ -63,7 +63,9 @@ app.use(express.static(path.join(__dirname, 'build')));
 //   res.json(results);
 // });
 
-// app.listen(process.env.PORT || 8080);
+if (process.env.NODE_ENV === 'development') {
+  app.listen(process.env.PORT || 8080);
+}
 
 const api = functions.https.onRequest(app);
 
