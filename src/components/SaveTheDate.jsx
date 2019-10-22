@@ -32,6 +32,9 @@ const styles = theme => ({
   },
   divider: {
     lineHeight: .5
+  },
+  link: {
+    color: 'rgba(0, 0, 0, 0.87)'
   }
 });
 
@@ -55,7 +58,7 @@ const SaveTheDate = (props) => {
       <MuiThemeProvider theme={theme}>
         <Paper className={classes.body} square={true}>
           <Typography variant="h6" component="h6">
-            { user.id ? `${user.name} ` : '' }
+            {user.id ? `${user.name} ` : ''}
           </Typography>
           <Typography variant="h5" component="h5">
             Please Save the Date
@@ -65,7 +68,9 @@ const SaveTheDate = (props) => {
           </Typography>
           {/* <div className={classes.divider}>—</div> */}
           <Typography component="p">
-            Holly Hedge Estate <span className={classes.divider}>—</span> New Hope, PA
+            <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>
+              Holly Hedge Estate <span className={classes.divider}>—</span> New Hope, PA
+            </a>
           </Typography>
         </Paper>
       </MuiThemeProvider>
