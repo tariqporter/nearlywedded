@@ -43,11 +43,12 @@ app.get('/data/user/:userId/', async (req, res) => {
 app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   const { userId } = req.params;
   const doc = db.collection('users').doc(userId);
-  const union = doc.update({
+  await doc.update({
     saveDateViewDates: admin.firestore.FieldValue.arrayUnion(new Date())
   });
-  const saveDateViewDates = await union;
-  return res.json({ saveDateViewDates });
+  const data1 = await doc.get();
+  const saveDateViewDatesLength = data1.data().saveDateViewDates.length;
+  return res.json({ saveDateViewDatesLength });
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
