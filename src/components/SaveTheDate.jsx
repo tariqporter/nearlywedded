@@ -35,12 +35,13 @@ const styles = theme => ({
   }
 });
 
-const SaveTheDate = ({
-  user,
-  classes = '',
-  location = {},
-  getUser = () => { },
-}) => {
+const SaveTheDate = (props) => {
+  const {
+    user,
+    classes = '',
+    location = {},
+    getUser = () => { }
+  } = props;
 
   useEffect(() => {
     const userId = qs.parse(location.search).userid;
