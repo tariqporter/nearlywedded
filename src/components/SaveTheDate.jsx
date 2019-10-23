@@ -52,7 +52,7 @@ const styles = theme => ({
     backgroundRepeat: 'no-repeat',
     backgroundColor: '#ffffff',
     width: 560,
-    height: 875,
+    height: 930,
     backgroundSize: 'cover'
   },
   paperContent: {
