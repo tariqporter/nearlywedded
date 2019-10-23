@@ -54,16 +54,17 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
     return res.json({ saveDateViewDatesLength: -1 });
   }
 
+  const data1 = doc.data();
+  const saveDateViewDates = {
+    date: new Date(),
+    map: ipInfo && ipInfo.ll && ipInfo.ll.length >= 2 ? `http://google.com/maps/?q=${ipInfo.ll[0]},${ipInfo.ll[1]}` : '',
+    info: ipInfo 
+  };
   const ipInfo = req.ipInfo;
   ref.update({
-    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ 
-      date: new Date(),
-      map: ipInfo && ipInfo.ll && ipInfo.ll.length >= 2 ? `http://google.com/maps/?q=${ipInfo.ll[0]},${ipInfo.ll[1]}` : '',
-      info: ipInfo 
-    })
+    saveDateViewDates: !data1.saveDateViewDates ? saveDateViewDates : admin.firestore.FieldValue.arrayUnion(saveDateViewDates)
   });
 
-  const data1 = doc.data();
   const saveDateViewDatesLength = data1.saveDateViewDates.length + 1;
   return res.json({ saveDateViewDatesLength });
 });
