@@ -42,7 +42,7 @@ app.get('/data/user/:userId/', async (req, res) => {
     return res.json({ user: { id: null} });
   }
   const data1 = doc.data();
-  const user = { id: doc.id, ...data1 };
+  const user = { id: doc.id, name: data1.name };
   return res.json({ user });
 });
 
