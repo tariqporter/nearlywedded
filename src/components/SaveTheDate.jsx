@@ -67,6 +67,9 @@ const styles = theme => ({
       margin: '0 auto auto 0',
     }
   },
+  elevation1: {
+    boxShadow: '0 12px 36px -2px rgba(0,0,0,.4)'
+  },
   title: {
     margin: '6px 0',
     lineHeight: '1em'
@@ -98,7 +101,11 @@ const SaveTheDate = (props) => {
   return (
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
-        <Paper className={clsx(classes.body, classes.img)} square={true}>
+        <Paper
+          className={clsx(classes.body, classes.img)}
+          square={true}
+          classes={{ elevation1: classes.elevation1 }}
+        >
           <div className={classes.paperContent}>
             <h1 className={classes.title}>Tariq <span className={classes.cursive}>&amp;</span> Irina</h1>
             {/* <Typography variant="h6">
