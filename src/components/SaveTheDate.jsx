@@ -33,11 +33,12 @@ const styles = theme => ({
   body: {
     display: 'flex',
     padding: '24px 16px',
-    margin: '20px auto',
-    width: '100%',
+    margin: '0 auto 0 auto',
+    // width: '100%',
     position: 'relative',
     [theme.breakpoints.up('sm')]: {
-      width: 600
+      // width: 600
+      margin: '20px auto',
     }
   },
   divider: {
@@ -47,10 +48,11 @@ const styles = theme => ({
     color: 'rgba(0, 0, 0, 0.87)'
   },
   img: {
-    background: 'url(/img/_CFZ0358_main1.jpg) 50% 40px',
+    background: 'url(/img/_CFZ0358_main2.jpg) 50% 40px',
     backgroundRepeat: 'no-repeat',
     backgroundColor: '#ffffff',
-    height: 850,
+    width: 560,
+    height: 875,
     backgroundSize: 'cover'
   },
   paperContent: {
@@ -60,7 +62,10 @@ const styles = theme => ({
     // backgroundColor: 'rgba(255, 255, 255, .15)',
     // backgroundColor: '#ffffff',
     // width: 300,
-    margin: '-20px auto auto -20px'
+    margin: '0 auto auto auto',
+    [theme.breakpoints.up('sm')]: {
+      margin: '-20px auto auto -20px',
+    }
   },
   title: {
     margin: '5px 0',
