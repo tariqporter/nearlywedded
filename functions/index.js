@@ -54,9 +54,9 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
     return res.json({ saveDateViewDatesLength: -1 });
   }
 
-
+  const ipInfo = req.ipInfo;
   ref.update({
-    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ date: new Date(), info: res1 })
+    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ date: new Date(), info: ipInfo })
   });
 
   const data1 = doc.data();
