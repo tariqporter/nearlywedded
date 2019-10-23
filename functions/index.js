@@ -58,7 +58,7 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   const data1 = doc.data();
   const saveDateViewDates = {
     date: new Date(),
-    map: ipInfo && ipInfo.ll && ipInfo.ll.length >= 2 ? `http://google.com/maps/?q=${ipInfo.ll[0]},${ipInfo.ll[1]}` : '',
+    map: ipInfo && ipInfo.ll && ipInfo.ll.length >= 2 ? `http://www.google.com/maps/place/${ipInfo.ll[0]},${ipInfo.ll[1]}` : '',
     info: ipInfo 
   };
   
