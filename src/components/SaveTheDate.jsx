@@ -32,7 +32,7 @@ const styles = theme => ({
   },
   body: {
     display: 'flex',
-    padding: '24px 16px',
+    padding: '6px 16px',
     margin: '0 auto 0 auto',
     // width: '100%',
     position: 'relative',
@@ -56,7 +56,7 @@ const styles = theme => ({
     backgroundSize: 'cover'
   },
   paperContent: {
-    padding: 15,
+    // padding: 15,
     position: 'relative',
     // background: 'url(/img/pink_rice_transparent.png)',
     // backgroundColor: 'rgba(255, 255, 255, .15)',
@@ -64,11 +64,11 @@ const styles = theme => ({
     // width: 300,
     margin: '0 auto auto auto',
     [theme.breakpoints.up('sm')]: {
-      margin: '-20px auto auto -20px',
+      margin: '0 auto auto 0',
     }
   },
   title: {
-    margin: '5px 0',
+    margin: '6px 0',
     lineHeight: '1em'
   },
   cursive: {
