@@ -53,7 +53,7 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   }
 
   ref.update({
-    saveDateViewDates: admin.firestore.FieldValue.arrayUnion(new Date())
+    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ date: new Date(), ip: req.ip })
   });
 
   const data1 = doc.data();
