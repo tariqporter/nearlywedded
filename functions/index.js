@@ -4,9 +4,10 @@ const adminMock = require('./admin-mock');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-const iplocation = require("iplocation").default;
+const expressip = require('express-ip');
 
 const app = express();
+app.use(expressip().getIpInfoMiddleware);
 let serviceAccount = functions.config().serviceaccount;
 if (serviceAccount) {
   serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
@@ -53,10 +54,9 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
     return res.json({ saveDateViewDatesLength: -1 });
   }
 
-  iplocation(req.ip, [], (error1, res1) => {
-    ref.update({
-      saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ date: new Date(), info: res1 })
-    });
+
+  ref.update({
+    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ date: new Date(), info: res1 })
   });
 
   const data1 = doc.data();

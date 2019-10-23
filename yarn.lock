@@ -5814,11 +5814,6 @@ ip-regex@^2.1.0:
   resolved "https://registry.yarnpkg.com/ip-regex/-/ip-regex-2.1.0.tgz#fa78bf5d2e6913c911ce9f819ee5146bb6d844e9"
   integrity sha1-+ni/XS5pE8kRzp+BnuUUa7bYROk=
 
-ip-validator@0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/ip-validator/-/ip-validator-0.0.1.tgz#659eb6001d38c35beab51455a2f751b843299eb5"
-  integrity sha1-ZZ62AB04w1vqtRRVovdRuEMpnrU=
-
 ip@^1.1.0, ip@^1.1.5:
   version "1.1.5"
   resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
@@ -5833,15 +5828,6 @@ ipaddr.js@^1.5.2:
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
   integrity sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==
-
-iplocation@^6.1.0:
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/iplocation/-/iplocation-6.1.0.tgz#d736dd9dd6a2f007485ce9a4b4e7001de973bc7e"
-  integrity sha512-odCKZpe7PQ4fpZ8Jdl/hKuMobhw5NDcA58fOCX3Zo4BtopvxI3jhwiEPgPW9ACOLzGYoTITF/oiuYoY97uAjWQ==
-  dependencies:
-    debug "^3.0.0"
-    ip-validator "0.0.1"
-    request "=2.88.0"
 
 is-absolute-url@^2.0.0:
   version "2.1.0"
@@ -10046,7 +10032,7 @@ request-promise-native@^1.0.5, request-promise-native@^1.0.7:
     stealthy-require "^1.1.1"
     tough-cookie "^2.3.3"
 
-request@=2.88.0, request@^2.87.0, request@^2.88.0:
+request@^2.87.0, request@^2.88.0:
   version "2.88.0"
   resolved "https://registry.yarnpkg.com/request/-/request-2.88.0.tgz#9c2fca4f7d35b592efe57c7f0a55e81052124fef"
   integrity sha512-NAqBSrijGLZdM0WZNsInLJpkJokL72XYjUpnB0iwsRgxh7dB6COrHnTBNwN0E+lHDAJzu7kLAkDeY08z2/A0hg==
