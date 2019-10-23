@@ -56,7 +56,11 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
 
   const ipInfo = req.ipInfo;
   ref.update({
-    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ date: new Date(), info: ipInfo })
+    saveDateViewDates: admin.firestore.FieldValue.arrayUnion({ 
+      date: new Date(),
+      map: ipInfo && ipInfo.ll && ipInfo.ll.length >= 2 ? `http://google.com/maps/?q=${ipInfo.ll[0]},${ipInfo.ll[1]}` : '',
+      info: ipInfo 
+    })
   });
 
   const data1 = doc.data();
