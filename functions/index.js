@@ -47,7 +47,7 @@ app.get('/data/user/:userId/', async (req, res) => {
 });
 
 app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
-  console.log(JSON.stringify(admin.auth().currentUser));
+  console.log(req.auth.uid, JSON.stringify(admin.auth().currentUser));
   const { userId } = req.params;
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
