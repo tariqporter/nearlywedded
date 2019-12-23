@@ -1,25 +1,49 @@
 const functions = require("firebase-functions");
-let admin = require('firebase-admin');
-const adminMock = require('./admin-mock');
+const admin = require('firebase-admin');
+// const adminMock = require('./admin-mock');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const expressip = require('express-ip');
 
+// const firebase = require("firebase/app");
+// require("firebase/auth");
+// require("firebase/firestore");
+
+// // Your web app's Firebase configuration
+// const firebaseConfig = {
+//   apiKey: "AIzaSyD6aN6TYIRHnTw9q-mrbaDu9NYAAraV66M",
+//   authDomain: "staging-nearlywedded.firebaseapp.com",
+//   databaseURL: "https://staging-nearlywedded.firebaseio.com",
+//   projectId: "staging-nearlywedded",
+//   storageBucket: "staging-nearlywedded.appspot.com",
+//   messagingSenderId: "112074444845",
+//   appId: "1:112074444845:web:5ad947c4de2885f85d28a4",
+//   measurementId: "G-Z9RDEN1BCY"
+// };
+// // Initialize Firebase
+// firebase.initializeApp(firebaseConfig);
+
 const app = express();
 app.use(expressip().getIpInfoMiddleware);
-let serviceAccount = functions.config().serviceaccount;
-if (serviceAccount) {
-  serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
-}
-else {
-  serviceAccount = {};
-  admin = adminMock;
-}
+// const config = functions.config();
+
+// const serviceAccount = require('/Users/tariqporter/Downloads/nearlywedded-28143-firebase-adminsdk-tbogu-813b71a9e6.json');
+// const serviceAccount = functions.config().serviceaccount;
+// console.log(functions.config());
+// if (serviceAccount) {
+//   serviceAccount.private_key = serviceAccount.private_key.replace(/\\n/g, '\n');
+// }
+// else {
+//   serviceAccount = {};
+//   admin = adminMock;
+// }
+
+const adminApp = admin.initializeApp();
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: serviceAccount.databaseurl
+  credential: admin.credential.applicationDefault(),
+  databaseURL: "https://staging-nearlywedded.firebaseio.com"
 });
 const db = admin.firestore();
 
@@ -39,7 +63,7 @@ app.get('/data/user/:userId/', async (req, res) => {
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
   if (!doc.exists) {
-    return res.json({ user: { id: null} });
+    return res.json({ user: { id: null } });
   }
   const data1 = doc.data();
   const user = { id: doc.id, name: data1.name };
@@ -47,6 +71,8 @@ app.get('/data/user/:userId/', async (req, res) => {
 });
 
 app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
+  const defaultAuth = admin.auth();
+  console.log(defaultAuth);
   const { userId } = req.params;
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
@@ -59,15 +85,15 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
   const saveDateViewDates = {
     date: new Date(),
     map: ipInfo && ipInfo.ll && ipInfo.ll.length >= 2 ? `http://www.google.com/maps/place/${ipInfo.ll[0]},${ipInfo.ll[1]}` : '',
-    info: ipInfo 
+    info: ipInfo
   };
-  
+
   ref.update({
     saveDateViewDates: admin.firestore.FieldValue.arrayUnion(saveDateViewDates)
   });
 
   const saveDateViewDatesLength = !data1.saveDateViewDates ? 1 : data1.saveDateViewDates.length + 1;
-  return res.json({ saveDateViewDatesLength });
+  return res.json({});
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
