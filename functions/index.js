@@ -39,7 +39,7 @@ app.use(expressip().getIpInfoMiddleware);
 //   admin = adminMock;
 // }
 
-const adminApp = admin.initializeApp();
+// const adminApp = admin.initializeApp();
 
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
