@@ -71,8 +71,8 @@ app.get('/data/user/:userId/', async (req, res) => {
 });
 
 app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
-  const defaultAuth = admin.auth();
-  console.log(defaultAuth);
+  // const defaultAuth = admin.auth();
+  // console.log(defaultAuth);
   const { userId } = req.params;
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
