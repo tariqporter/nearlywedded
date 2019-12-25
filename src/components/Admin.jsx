@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {
@@ -13,7 +13,10 @@ import {
   TableCell,
   TableBody,
   Paper,
+  InputAdornment,
+  IconButton,
 } from '@material-ui/core';
+import { Close } from '@material-ui/icons';
 import {
   logInOutAction,
   setSignedInAction,
@@ -47,6 +50,7 @@ const Admin = props => {
   } = props;
 
   const [credentials, setCredentials] = useState({ email: '', password: '' });
+  const saveDateSearchRef = useRef(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(user => {
@@ -101,11 +105,31 @@ const Admin = props => {
       {signedIn && (
         <>
           <TextField
+            inputRef={saveDateSearchRef}
             className={classes.loginField}
             label="Search..."
             value={saveDateSearch}
             onChange={e => setSaveDateSearch(e.target.value)}
             onKeyDown={e => onEnter(e, setSaveDateSearch, saveDateSearch)}
+            InputProps={
+              saveDateSearch === ''
+                ? null
+                : {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="clear search"
+                          onClick={() => {
+                            setSaveDateSearch('');
+                            saveDateSearchRef.current.focus();
+                          }}
+                        >
+                          <Close />
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }
+            }
           />
           <TableContainer component={Paper}>
             <Table aria-label="users table">
