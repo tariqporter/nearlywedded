@@ -6,6 +6,7 @@ export const ACTION = {
   SET_USER: 'SET_USER',
   SET_USERS: 'SET_USERS',
   SET_SIGN_IN_ERROR: 'SET_SIGN_IN_ERROR',
+  SET_SAVE_DATE_SEARCH: 'SET_SAVE_DATE_SEARCH',
 };
 
 export const getEventsAction = () => {
@@ -84,4 +85,11 @@ export const logInOutAction = (email, password) => async (
       const signInError = error.message;
       dispatch(setSignedInAction(false, signInError));
     });
+};
+
+export const setSaveDateSearchAction = saveDateSearch => {
+  return {
+    type: ACTION.SET_SAVE_DATE_SEARCH,
+    saveDateSearch,
+  };
 };

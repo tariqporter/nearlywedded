@@ -14,7 +14,12 @@ import {
   TableBody,
   Paper,
 } from '@material-ui/core';
-import { logInOutAction, setSignedInAction, getUsersAction } from '../actions';
+import {
+  logInOutAction,
+  setSignedInAction,
+  getUsersAction,
+  setSaveDateSearchAction,
+} from '../actions';
 import * as firebase from 'firebase/app';
 
 const styles = theme => ({
@@ -31,12 +36,14 @@ const styles = theme => ({
 const Admin = props => {
   const {
     classes,
-    users,
+    filterUsers,
     signedIn,
     signInError,
     setSignedIn,
     logInOut,
     getUsers,
+    saveDateSearch,
+    setSaveDateSearch,
   } = props;
 
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -58,8 +65,8 @@ const Admin = props => {
     setCredentials(p => ({ ...p, [id]: value }));
   };
 
-  const onEnter = e => {
-    if (e.key === 'Enter') logInOut();
+  const onEnter = (e, fn, value) => {
+    if (e.key === 'Enter') fn(value);
   };
 
   return (
@@ -72,7 +79,7 @@ const Admin = props => {
               label="Email"
               value={credentials.email}
               onChange={e => updateCredentials('email', e.target.value)}
-              onKeyDown={onEnter}
+              onKeyDown={e => onEnter(e, logInOut)}
             />
             <TextField
               className={classes.loginField}
@@ -80,7 +87,7 @@ const Admin = props => {
               type="password"
               value={credentials.password}
               onChange={e => updateCredentials('password', e.target.value)}
-              onKeyDown={onEnter}
+              onKeyDown={e => onEnter(e, logInOut)}
             />
           </>
         )}
@@ -93,6 +100,13 @@ const Admin = props => {
       <FormHelperText error>{signInError}</FormHelperText>
       {signedIn && (
         <>
+          <TextField
+            className={classes.loginField}
+            label="Search..."
+            value={saveDateSearch}
+            onChange={e => setSaveDateSearch(e.target.value)}
+            onKeyDown={e => onEnter(e, setSaveDateSearch, saveDateSearch)}
+          />
           <TableContainer component={Paper}>
             <Table aria-label="users table">
               <TableHead>
@@ -104,7 +118,7 @@ const Admin = props => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {users.map(user => (
+                {filterUsers.map(user => (
                   <TableRow key={user.id}>
                     <TableCell component="th" scope="row">
                       {user.name}
@@ -131,11 +145,17 @@ const Admin = props => {
   );
 };
 
-const mapStateToProps = ({ users, signedIn, signInError }) => {
+const mapStateToProps = ({
+  filterUsers,
+  signedIn,
+  signInError,
+  saveDateSearch,
+}) => {
   return {
-    users,
+    filterUsers,
     signedIn,
     signInError,
+    saveDateSearch,
   };
 };
 
@@ -145,6 +165,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       logInOut: logInOutAction,
       setSignedIn: setSignedInAction,
       getUsers: getUsersAction,
+      setSaveDateSearch: setSaveDateSearchAction,
     },
     dispatch
   );
