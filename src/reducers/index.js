@@ -1,14 +1,17 @@
-import { ACTION } from "../actions";
+import { ACTION } from '../actions';
 
 const diffTime = new Date(2020, 8, 4).getTime() - new Date().getTime();
 const daysUntilWedding = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
 const initialState = {
   user: {
-    id: null
+    id: null,
   },
   events: [],
-  daysUntilWedding
+  daysUntilWedding,
+  signedIn: true,
+  signInError: '',
+  users: [],
 };
 
 export default (state = initialState, action) => {
@@ -18,6 +21,14 @@ export default (state = initialState, action) => {
     }
     case ACTION.SET_EVENTS: {
       return { ...state, events: action.events };
+    }
+    case ACTION.SET_SIGN_IN_ERROR: {
+      const { signedIn, signInError } = action;
+      return { ...state, signedIn, signInError };
+    }
+    case ACTION.SET_USERS: {
+      const { users } = action;
+      return { ...state, users };
     }
     default:
       return state;
