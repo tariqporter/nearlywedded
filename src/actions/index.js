@@ -8,8 +8,6 @@ export const ACTION = {
   SET_SIGN_IN_ERROR: 'SET_SIGN_IN_ERROR',
 };
 
-console.log(process.env);
-
 export const getEventsAction = () => {
   return dispatch => {
     return axios
