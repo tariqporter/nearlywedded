@@ -22,6 +22,7 @@ import {
   setSignedInAction,
   getUsersAction,
   setSaveDateSearchAction,
+  sendSaveDateEmailAction,
 } from '../actions';
 import * as firebase from 'firebase/app';
 
@@ -47,6 +48,7 @@ const Admin = props => {
     getUsers,
     saveDateSearch,
     setSaveDateSearch,
+    sendSaveDateEmail,
   } = props;
 
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -139,6 +141,7 @@ const Admin = props => {
                   <TableCell align="left">Email</TableCell>
                   <TableCell align="left">Save Date Views</TableCell>
                   <TableCell align="left">Save Date Last Viewed</TableCell>
+                  <TableCell align="left"></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -157,6 +160,11 @@ const Admin = props => {
                             user.saveDateViewDates.pop().date.seconds * 1000
                           ).toLocaleDateString()
                         : '—'}
+                    </TableCell>
+                    <TableCell align="left">
+                      <Button onClick={() => sendSaveDateEmail(user.id)}>
+                        Send Email
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))}
@@ -190,6 +198,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
       setSignedIn: setSignedInAction,
       getUsers: getUsersAction,
       setSaveDateSearch: setSaveDateSearchAction,
+      sendSaveDateEmail: sendSaveDateEmailAction,
     },
     dispatch
   );

@@ -4,17 +4,50 @@ const express = require('express');
 const path = require('path');
 const cors = require('cors');
 const expressip = require('express-ip');
+const nodemailer = require('nodemailer');
 
 const app = express();
 app.use(expressip().getIpInfoMiddleware);
 admin.initializeApp({
   credential: admin.credential.applicationDefault(),
-  // databaseURL: 'https://staging-nearlywedded.firebaseio.com',
 });
 const db = admin.firestore();
 
 // Automatically allow cross-origin requests
 app.use(cors({ origin: true }));
+
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: functions.config().mailer.admin_email,
+    pass: functions.config().mailer.admin_password,
+  },
+});
+
+module.exports.sendMail = functions.https.onRequest(async (req, res) => {
+  const { userId } = req.params;
+  const ref = db.collection('users').doc(userId);
+  const doc = await ref.get();
+  const data1 = doc.data();
+  console.log(data1);
+
+  const mailOptions = {
+    from: 'Nearly Wedded <info@nearlywedded.com>',
+    to: 'tic084@gmail.com',
+    subject: "I'M A PICKLE!!!",
+    html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
+              <br />
+              <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
+          `,
+  };
+
+  return transporter.sendMail(mailOptions, (err, info) => {
+    if (err) {
+      return res.send(err.toString());
+    }
+    return res.send('Sent');
+  });
+});
 
 app.get('/data/events/', async (req, res) => {
   const data1 = await db.collection('events').get();
@@ -73,4 +106,4 @@ if (process.env.NODE_ENV === 'development') {
 
 const api = functions.https.onRequest(app);
 
-module.exports = { api };
+module.exports.api = api;
