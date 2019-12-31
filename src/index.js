@@ -12,6 +12,7 @@ import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/functions';
 import 'firebase/firestore';
 
 const firebaseConfig = {
