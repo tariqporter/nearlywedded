@@ -25,7 +25,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendMail = functions.https.onRequest(async (req, res) => {
-  const { userId } = req.params;
+  const { userId } = req.query;
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
   const data1 = doc.data();
