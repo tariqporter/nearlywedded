@@ -96,6 +96,6 @@ export const setSaveDateSearchAction = saveDateSearch => {
 
 export const sendSaveDateEmailAction = userId => () => {
   return axios.post(
-    process.env.REACT_APP_API_PATH + `sendMail?userId=${userId}/`
+    process.env.REACT_APP_FUNCTION_PATH + `sendMail?userId=${userId}/`
   );
 };

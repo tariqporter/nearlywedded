@@ -2,6 +2,7 @@ FILE="./.env"
 
 if [[ $TRAVIS_BRANCH == 'production' ]]; then
 cat <<EOM >$FILE
+REACT_APP_FUNCTION_PATH=https://us-central1-nearlywedded-28143.cloudfunctions.net/
 REACT_APP_API_PATH=https://us-central1-nearlywedded-28143.cloudfunctions.net/api/
 REACT_APP_API_KEY=AIzaSyCyWpKCSFYD4RW5MAbYbEdfhoUiDt6trkE
 REACT_APP_AUTH_DOMAIN=nearlywedded-28143.firebaseapp.com
@@ -16,6 +17,7 @@ EOM
     cat $FILE
 elif [[ $TRAVIS_BRANCH == 'master' ]]; then
 cat <<EOM >$FILE
+REACT_APP_FUNCTION_PATH=https://us-central1-staging-nearlywedded.cloudfunctions.net/
 REACT_APP_API_PATH=https://us-central1-staging-nearlywedded.cloudfunctions.net/api/
 REACT_APP_API_KEY=AIzaSyD6aN6TYIRHnTw9q-mrbaDu9NYAAraV66M
 REACT_APP_AUTH_DOMAIN=staging-nearlywedded.firebaseapp.com
