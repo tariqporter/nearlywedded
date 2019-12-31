@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendMail = functions.https.onRequest(async (req, res) => {
+const sendEmail = functions.https.onRequest(async (req, res) => {
   const { userId } = req.query;
   const ref = db.collection('users').doc(userId);
   const doc = await ref.get();
@@ -106,4 +106,4 @@ if (process.env.NODE_ENV === 'development') {
 
 const api = functions.https.onRequest(app);
 
-module.exports = { api, sendMail };
+module.exports = { api, sendEmail };

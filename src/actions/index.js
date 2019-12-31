@@ -94,8 +94,9 @@ export const setSaveDateSearchAction = saveDateSearch => {
   };
 };
 
-export const sendSaveDateEmailAction = userId => () => {
-  return axios.post(
-    process.env.REACT_APP_FUNCTION_PATH + `sendMail?userId=${userId}/`
-  );
+export const sendSaveDateEmailAction = userId => async () => {
+  const sendEmail = firebase.functions().httpsCallable('sendEmail');
+  const result = await sendEmail({ userId });
+  console.log(result);
+  return result;
 };
