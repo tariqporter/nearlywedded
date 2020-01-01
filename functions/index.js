@@ -39,7 +39,7 @@ const sendEmail = functions.https.onRequest((req, res) => {
     console.log(data1);
 
     const mailOptions = {
-      from: 'Nearly Wedded <info@nearlywedded.com>',
+      from: 'Tariq & Irina Wedding <info@nearlywedded.com>',
       to: 'tic084@gmail.com',
       subject: 'Save the date - September 4th 2020',
       html: getEmail({ id: doc.id, name: data1.name }),
