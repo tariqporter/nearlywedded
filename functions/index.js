@@ -28,7 +28,7 @@ const transporter = nodemailer.createTransport({
 const sendEmail = functions.https.onRequest((req, res) => {
   console.log(req.body, req.params);
   cors(req, res, async () => {
-    const { userId } = req.query;
+    const { userId } = req.body.data;
     console.log(userId);
     const ref = db.collection('users').doc(userId);
     const doc = await ref.get();
