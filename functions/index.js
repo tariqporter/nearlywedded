@@ -49,9 +49,9 @@ const sendEmail = functions.https.onRequest((req, res) => {
 
     return transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        return res.send(err.toString());
+        return res.json({ err: err.toString() });
       }
-      return res.send('Sent');
+      return res.json({});
     });
   });
 });
