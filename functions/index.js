@@ -2,7 +2,8 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const path = require('path');
-const cors = require('cors');
+// const cors = require('cors');
+const cors = require('cors')({ origin: true });
 const expressip = require('express-ip');
 const nodemailer = require('nodemailer');
 
@@ -14,7 +15,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Automatically allow cross-origin requests
-app.use(cors({ origin: true }));
+app.use(cors);
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
