@@ -25,6 +25,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmail = functions.https.onRequest((req, res) => {
+  console.log(req.query);
   cors(req, res, async () => {
     const { userId } = req.query;
     console.log(userId);
