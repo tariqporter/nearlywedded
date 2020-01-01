@@ -24,28 +24,31 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = functions.https.onRequest(async (req, res) => {
-  const { userId } = req.query;
-  const ref = db.collection('users').doc(userId);
-  const doc = await ref.get();
-  const data1 = doc.data();
-  console.log(data1);
+const sendEmail = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const { userId } = req.query;
+    console.log(userId);
+    const ref = db.collection('users').doc(userId);
+    const doc = await ref.get();
+    const data1 = doc.data();
+    console.log(data1);
 
-  const mailOptions = {
-    from: 'Nearly Wedded <info@nearlywedded.com>',
-    to: 'tic084@gmail.com',
-    subject: "I'M A PICKLE!!!",
-    html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
+    const mailOptions = {
+      from: 'Nearly Wedded <info@nearlywedded.com>',
+      to: 'tic084@gmail.com',
+      subject: "I'M A PICKLE!!!",
+      html: `<p style="font-size: 16px;">Pickle Riiiiiiiiiiiiiiiick!!</p>
               <br />
               <img src="https://images.prod.meredith.com/product/fc8754735c8a9b4aebb786278e7265a5/1538025388228/l/rick-and-morty-pickle-rick-sticker" />
           `,
-  };
+    };
 
-  return transporter.sendMail(mailOptions, (err, info) => {
-    if (err) {
-      return res.send(err.toString());
-    }
-    return res.send('Sent');
+    return transporter.sendMail(mailOptions, (err, info) => {
+      if (err) {
+        return res.send(err.toString());
+      }
+      return res.send('Sent');
+    });
   });
 });
 
