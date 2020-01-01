@@ -17,6 +17,8 @@ const db = admin.firestore();
 // Automatically allow cross-origin requests
 app.use(cors);
 
+console.log('functions.config()', functions.config());
+
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
