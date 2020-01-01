@@ -42,7 +42,7 @@ const sendEmail = functions.https.onRequest((req, res) => {
       from: 'Nearly Wedded <info@nearlywedded.com>',
       to: 'tic084@gmail.com',
       subject: 'Save the date - September 4th 2020',
-      html: getEmail({ id: data1.id, name: data1.name }),
+      html: getEmail({ id: doc.id, name: data1.name }),
     };
 
     return transporter.sendMail(mailOptions, (err, info) => {
