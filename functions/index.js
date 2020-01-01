@@ -6,6 +6,7 @@ const path = require('path');
 const cors = require('cors')({ origin: true });
 const expressip = require('express-ip');
 const nodemailer = require('nodemailer');
+const { getEmail } = require('./templates/saveTheDate');
 
 const app = express();
 app.use(expressip().getIpInfoMiddleware);
@@ -41,76 +42,7 @@ const sendEmail = functions.https.onRequest((req, res) => {
       from: 'Nearly Wedded <info@nearlywedded.com>',
       to: 'tic084@gmail.com',
       subject: 'Save the date - September 4th 2020',
-      html: `<div style=
-      "background:rgba(130,215,255,0.2)"><table width="450" border="0" cellpa=
-      dding="0" cellspacing="0" align="center" style="text-align:center;b=
-      order-collapse:collapse">
-            <tbody>
-              <tr>
-                <td width="450" height="50"></td>
-              </tr>
-            </tbody>
-          </table>
-          <table width="450" border="0" cellpadding="0" cellspacing="0" a=
-      lign="center" style="background:#fff;padding:30px;border:4px rgba(214,2=
-      28,224,0.5) solid">
-            <tbody>
-              <tr>
-                <td width="450" valign="middle" align="center" height="30=
-      " style="font-family:Georgia,Times,&#39;Times New Roman&#39;,serif;font-s=
-      ize:26px">
-                  Tariq &amp; Irina
-                </td>
-              </tr>
-              <tr>
-                <td width="450" valign="middle" align="center" height="30=
-      " style="font-family:Georgia,Times,&#39;Times New Roman&#39;,serif;color:=
-      #777">
-                  ARE GETTING MARRIED!
-                </td>
-              </tr>
-              <tr>
-                <td width="450" valign="middle" align="center" height="30=
-      ">
-                  <div style="text-align:left;margin-top:10px"><font face="ge=
-      orgia, serif">
-                    Dear <span style="font-size:13.3333px">Leila</span>,</font>=
-      </div>
-                  <div style="text-align:left;margin-top:10px"><font face="ge=
-      orgia, serif">
-                    We&#39;ve set a date for our wedding and can&#39;t wait to sh=
-      are the day with you!</font></div>
-                </td>
-              </tr>
-              <tr height="100px">
-                <td width="450" valign="middle" align="center" height="30=
-      ">
-                  <a href="https://nearlywedded.com/save-the-date?userid=SJvD=
-      FTHnHwj9vQEwKdmb" style="text-decoration:none;color:#fff;background:#494b=
-      4d;padding:10px;height:34px;border-radius:16px;font-family:Georgia,Times,&#=
-      39;Times New Roman&#39;,serif" target="_blank">Open Save the Date</a>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <table width="450" border="0" cellpadding="0" cellspacing="0" a=
-      lign="center" style="text-align:center;border-collapse:collapse">
-            <tbody>
-              <tr>
-                <td width="450" height="50"></td>
-              </tr>
-            </tbody>
-          </table>
-          <table width="450" border="0" cellpadding="0" cellspacing="0" a=
-      lign="center" style="text-align:center;border-collapse:collapse">
-            <tbody>
-              <tr>
-                <td width="450" height="50"></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-          `,
+      html: getEmail({ id: data1.id, name: data1.name }),
     };
 
     return transporter.sendMail(mailOptions, (err, info) => {
@@ -173,7 +105,7 @@ app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'build')));
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
   app.listen(process.env.PORT || 8080);
 }
 
