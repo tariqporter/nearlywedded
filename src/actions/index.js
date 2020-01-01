@@ -96,7 +96,9 @@ export const setSaveDateSearchAction = saveDateSearch => {
 
 export const sendSaveDateEmailAction = userId => async () => {
   const sendEmail = firebase.functions().httpsCallable('sendEmail');
-  const result = await sendEmail({ userId }).catch(err => console.log(err));
+  const result = await sendEmail({ userId }).catch(err =>
+    console.log('my err', err)
+  );
   console.log(result);
   return result;
 };
