@@ -13,6 +13,7 @@ const initialState = {
   signedIn: true,
   signInError: '',
   users: [],
+  sendingEmailUserIds: [],
   filterUsers: [],
   saveDateSearch: '',
 };
@@ -41,6 +42,18 @@ export default (state = initialState, action) => {
         user.name.toLocaleLowerCase().includes(saveDateSearch)
       );
       return { ...state, saveDateSearch, filterUsers };
+    }
+    case ACTION.SENDING_EMAIL: {
+      const { sendingEmailUserIds } = state;
+      const { userId } = action;
+      sendingEmailUserIds.push(userId);
+      return { ...state, sendingEmailUserIds };
+    }
+    case ACTION.SENT_EMAIL: {
+      let { sendingEmailUserIds } = state;
+      const { userId } = action;
+      sendingEmailUserIds = sendingEmailUserIds.filter(x => x !== userId);
+      return { ...state, sendingEmailUserIds };
     }
     default:
       return state;

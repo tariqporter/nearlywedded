@@ -7,6 +7,8 @@ export const ACTION = {
   SET_USERS: 'SET_USERS',
   SET_SIGN_IN_ERROR: 'SET_SIGN_IN_ERROR',
   SET_SAVE_DATE_SEARCH: 'SET_SAVE_DATE_SEARCH',
+  SENDING_EMAIL: 'SENDING_EMAIL',
+  SENT_EMAIL: 'SENT_EMAIL',
 };
 
 export const getEventsAction = () => {
@@ -57,7 +59,6 @@ export const getUsersAction = () => async dispatch => {
   const db = firebase.firestore();
   const data1 = await db.collection('users').get();
   const users = data1.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-  console.log(users);
   dispatch({
     type: ACTION.SET_USERS,
     users,
@@ -94,11 +95,17 @@ export const setSaveDateSearchAction = saveDateSearch => {
   };
 };
 
-export const sendSaveDateEmailAction = userId => async () => {
+export const sendSaveDateEmailAction = userId => async dispatch => {
   const sendEmail = firebase.functions().httpsCallable('sendEmail');
-  const result = await sendEmail({ userId }).catch(err =>
-    console.log('my err', err)
-  );
-  console.log(result);
+  dispatch({
+    type: ACTION.SENDING_EMAIL,
+    userId,
+  });
+  const result = await sendEmail({ userId });
+  console.log('result', result);
+  dispatch({
+    type: ACTION.SENT_EMAIL,
+    userId,
+  });
   return result;
 };

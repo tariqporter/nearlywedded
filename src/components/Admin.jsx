@@ -15,6 +15,7 @@ import {
   Paper,
   InputAdornment,
   IconButton,
+  CircularProgress,
 } from '@material-ui/core';
 import { Close } from '@material-ui/icons';
 import {
@@ -49,6 +50,7 @@ const Admin = props => {
     saveDateSearch,
     setSaveDateSearch,
     sendSaveDateEmail,
+    sendingEmailUserIds,
   } = props;
 
   const [credentials, setCredentials] = useState({ email: '', password: '' });
@@ -162,9 +164,13 @@ const Admin = props => {
                         : '—'}
                     </TableCell>
                     <TableCell align="left">
-                      <Button onClick={() => sendSaveDateEmail(user.id)}>
-                        Send Email
-                      </Button>
+                      {sendingEmailUserIds.includes(user.id) ? (
+                        <CircularProgress />
+                      ) : (
+                        <Button onClick={() => sendSaveDateEmail(user.id)}>
+                          Send Email
+                        </Button>
+                      )}
                     </TableCell>
                   </TableRow>
                 ))}
@@ -182,12 +188,14 @@ const mapStateToProps = ({
   signedIn,
   signInError,
   saveDateSearch,
+  sendingEmailUserIds,
 }) => {
   return {
     filterUsers,
     signedIn,
     signInError,
     saveDateSearch,
+    sendingEmailUserIds,
   };
 };
 

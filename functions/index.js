@@ -2,7 +2,6 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
 const path = require('path');
-// const cors = require('cors');
 const cors = require('cors')({ origin: true });
 const expressip = require('express-ip');
 const nodemailer = require('nodemailer');
@@ -18,8 +17,6 @@ const db = admin.firestore();
 // Automatically allow cross-origin requests
 app.use(cors);
 
-// console.log(`functions.config(): ${JSON.stringify(functions.config())}`);
-
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
@@ -29,17 +26,14 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendEmail = functions.https.onRequest((req, res) => {
-  console.log(req.body, req.params);
   cors(req, res, async () => {
     const { userId } = req.body.data;
-    console.log(userId);
     const ref = db.collection('users').doc(userId);
     const doc = await ref.get();
     const data1 = doc.data();
-    console.log(data1);
 
     const mailOptions = {
-      from: 'Tariq & Irina Wedding <info@nearlywedded.com>',
+      from: 'Tariq & Irina <info@nearlywedded.com>',
       to: 'tic084@gmail.com',
       subject: 'Save the date - September 4th 2020',
       html: getEmail({ id: doc.id, name: data1.name }),
@@ -47,9 +41,9 @@ const sendEmail = functions.https.onRequest((req, res) => {
 
     return transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        return res.json({ data: `err: ${err.toString()}` });
+        return res.json({ data: `err: ${err.toString()}`, success: false });
       }
-      return res.json({ data: 'sent' });
+      return res.json({ data: 'sent', success: true });
     });
   });
 });
