@@ -23,6 +23,11 @@ const transporter = nodemailer.createTransport({
     user: functions.config().mailer.admin_email,
     pass: functions.config().mailer.admin_password,
   },
+  dkim: {
+    domainName: 'nearylwedded.com',
+    keySelector: 'key1',
+    privateKey: functions.config().mailer.private_key,
+  },
 });
 
 const sendEmail = functions.https.onRequest((req, res) => {
