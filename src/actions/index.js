@@ -101,8 +101,10 @@ export const sendSaveDateEmailAction = userId => async dispatch => {
     type: ACTION.SENDING_EMAIL,
     userId,
   });
-  const result = await sendEmail({ userId });
+
+  const result = await sendEmail({ userId }).catch(err => console.log(err));
   console.log('result', result);
+
   dispatch({
     type: ACTION.SENT_EMAIL,
     userId,
