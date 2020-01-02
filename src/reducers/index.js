@@ -44,9 +44,9 @@ export default (state = initialState, action) => {
       return { ...state, saveDateSearch, filterUsers };
     }
     case ACTION.SENDING_EMAIL: {
-      const { sendingEmailUserIds } = state;
+      let { sendingEmailUserIds } = state;
       const { userId } = action;
-      sendingEmailUserIds.push(userId);
+      sendingEmailUserIds = [...sendingEmailUserIds, userId];
       return { ...state, sendingEmailUserIds };
     }
     case ACTION.SENT_EMAIL: {
