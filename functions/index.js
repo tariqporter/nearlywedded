@@ -24,7 +24,7 @@ const transporter = nodemailer.createTransport({
     pass: functions.config().mailer.admin_password,
   },
   dkim: {
-    domainName: 'staging.nearylwedded.com',
+    domainName: 'nearylwedded.com',
     keySelector: 'key1',
     privateKey: functions.config().mailer.private_key,
   },
