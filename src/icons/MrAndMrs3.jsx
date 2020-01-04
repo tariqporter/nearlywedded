@@ -233,4 +233,3 @@ export default ({ size = 64, ...other }) => {
 </svg>`;
   return <InlineSVG src={svgSource} {...other} />;
 };
-
