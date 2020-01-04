@@ -23,21 +23,19 @@ const styles = {
       right: 0,
       bottom: 0,
       boxShadow: 'inset 0 0 0 200px rgba(255,255,255,0.3)',
-      filter: 'blur(45px)'
-    }
+      filter: 'blur(45px)',
+    },
   },
   eventLeft: {
     flex: '0 0 250px',
-    alignSelf: 'center'
+    alignSelf: 'center',
   },
-  eventRight: {
-
-  },
+  eventRight: {},
   eventTitle: {
     marginTop: 0,
     textTransform: 'uppercase',
-    letterSpacing: 1.5
-  }
+    letterSpacing: 1.5,
+  },
 };
 
 class Events extends PureComponent {
@@ -45,35 +43,37 @@ class Events extends PureComponent {
     const { classes, events } = this.props;
     return (
       <div className={classes.root}>
-        {
-          events.map(event => (
-            <Grid container key={event.id} className={classes.event}>
-              <Grid item xs={12} md={6} className={classes.eventLeft1}>
-                <div>{event.time}</div>
-                <div>{event.location}</div>
-              </Grid>
-              <Grid item xs={12} md={6}>
-                <h4 className={classes.eventTitle}>{event.title}</h4>
-                <div>{event.description}</div>
-              </Grid>
+        {events.map(event => (
+          <Grid container key={event.id} className={classes.event}>
+            <Grid item xs={12} md={6} className={classes.eventLeft1}>
+              <div>{event.time}</div>
+              <div>{event.location}</div>
             </Grid>
-          ))
-        }
+            <Grid item xs={12} md={6}>
+              <h4 className={classes.eventTitle}>{event.title}</h4>
+              <div>{event.description}</div>
+            </Grid>
+          </Grid>
+        ))}
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { events } = state;
   return {
-    events
-  }
-}
+    events,
+  };
+};
 
-const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
-  getEvents: getEventsAction,
-}, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) =>
+  bindActionCreators(
+    {
+      getEvents: getEventsAction,
+    },
+    dispatch
+  );
 
 export default connect(
   mapStateToProps,
