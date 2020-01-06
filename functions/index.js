@@ -8,7 +8,7 @@ const expressip = require('express-ip');
 const nodemailer = require('nodemailer');
 const { getEmail } = require('./templates/saveTheDate');
 
-const serviceAccountPath = './.runtimeconfig.json';
+const serviceAccountPath = './function-config.json';
 
 const app = express();
 app.use(expressip().getIpInfoMiddleware);
