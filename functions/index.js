@@ -8,17 +8,12 @@ const { getEmail } = require('./templates/saveTheDate');
 
 const serviceAccountPath = './function-config.json';
 
-// const app = express();
-// app.use(expressip().getIpInfoMiddleware);
 admin.initializeApp({
   credential: fs.existsSync(serviceAccountPath)
     ? admin.credential.cert(require(serviceAccountPath).serviceaccount)
     : admin.credential.applicationDefault(),
 });
 const db = admin.firestore();
-
-// Automatically allow cross-origin requests
-// app.use(cors);
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -56,7 +51,7 @@ const getLocationInfo = req => {
     ''
   );
   const ip = xForwardedFor || req.connection.remoteAddress;
-  req.ipInfo = getIpInfo(ip);
+  return getIpInfo(ip);
 };
 
 module.exports.sendEmail = functions.https.onRequest((req, res) => {
@@ -158,9 +153,3 @@ module.exports.viewSaveTheDate = functions.https.onRequest((req, res) => {
     return res.json(data);
   });
 });
-
-// app.use(express.static(path.join(__dirname, 'build')));
-
-// if (process.env.NODE_ENV === 'development') {
-//   app.listen(process.env.PORT || 5000);
-// }
