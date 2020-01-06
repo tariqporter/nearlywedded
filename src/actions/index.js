@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 import * as firebase from 'firebase/app';
 
 export const ACTION = {
@@ -11,40 +11,42 @@ export const ACTION = {
   SENT_EMAIL: 'SENT_EMAIL',
 };
 
-export const getEventsAction = () => {
-  return dispatch => {
-    return axios
-      .get(process.env.REACT_APP_API_PATH + 'data/events/')
-      .then(response => {
-        const { events } = response.data;
-        dispatch({
-          type: ACTION.SET_EVENTS,
-          events,
-        });
-      })
-      .catch(err => console.log(err));
-  };
+export const getEventsAction = () => async dispatch => {
+  const getEvents = firebase.functions().httpsCallable('getEvents');
+
+  const result = await getEvents().catch(err => console.log(err));
+  console.log('result', result);
+
+  const { events } = result.data;
+  dispatch({
+    type: ACTION.SET_EVENTS,
+    events,
+  });
+  return result;
 };
 
-export const getUserAction = userId => dispatch => {
-  return axios
-    .get(process.env.REACT_APP_API_PATH + `data/user/${userId}/`)
-    .then(response => {
-      const { user } = response.data;
-      dispatch({
-        type: ACTION.SET_USER,
-        user,
-      });
-    })
-    .catch(err => console.log(err));
+export const getUserAction = userId => async dispatch => {
+  const getUser = firebase.functions().httpsCallable('getUser');
+
+  const result = await getUser({ userId }).catch(err => console.log(err));
+  console.log('result', result);
+
+  const { user } = result.data;
+  dispatch({
+    type: ACTION.SET_USER,
+    user,
+  });
+  return result;
 };
 
-export const updateSaveTheDateViewsAction = userId => dispatch => {
-  return axios
-    .post(
-      process.env.REACT_APP_API_PATH + `data/user/saveTheDateViews/${userId}/`
-    )
-    .catch(err => console.log(err));
+export const updateSaveTheDateViewsAction = userId => async dispatch => {
+  const viewSaveTheDate = firebase.functions().httpsCallable('viewSaveTheDate');
+
+  const result = await viewSaveTheDate({ userId }).catch(err =>
+    console.log(err)
+  );
+  console.log('result', result);
+  return result;
 };
 
 export const setSignedInAction = (signedIn, signInError = '') => dispatch => {

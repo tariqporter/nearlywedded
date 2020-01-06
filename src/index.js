@@ -26,7 +26,10 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
+const app = firebase.initializeApp(firebaseConfig);
+if (process.env.NODE_ENV === 'development') {
+  app.functions().useFunctionsEmulator('http://localhost:5001');
+}
 
 export const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
 

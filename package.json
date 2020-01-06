@@ -37,7 +37,7 @@
   "engines": {
     "node": "10.x"
   },
-  "proxy": "http://localhost:8080",
+  "proxy": "http://localhost:5001",
   "scripts": {
     "start": "env-cmd -f .env.dev node functions/index.js",
     "dev": "env-cmd -f .env.dev react-scripts start",

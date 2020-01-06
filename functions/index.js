@@ -1,3 +1,4 @@
+const fs = require('fs');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const express = require('express');
@@ -7,10 +8,14 @@ const expressip = require('express-ip');
 const nodemailer = require('nodemailer');
 const { getEmail } = require('./templates/saveTheDate');
 
+const serviceAccountPath = './.runtimeconfig.json';
+
 const app = express();
 app.use(expressip().getIpInfoMiddleware);
 admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
+  credential: fs.existsSync(serviceAccountPath)
+    ? admin.credential.cert(require(serviceAccountPath).serviceaccount)
+    : admin.credential.applicationDefault(),
 });
 const db = admin.firestore();
 
@@ -30,84 +35,108 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-const sendEmail = functions.https.onRequest((req, res) => {
+module.exports.sendEmail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     const { userId } = req.body.data;
-    const ref = db.collection('users').doc(userId);
-    const doc = await ref.get();
-    const data1 = doc.data();
+    const data = { data: { err: 'sent', success: true } };
+    try {
+      const ref = db.collection('users').doc(userId);
+      const doc = await ref.get();
+      const data1 = doc.data();
+      const mailOptions = {
+        from: 'Tariq & Irina <info@nearlywedded.com>',
+        to: 'tic084@gmail.com',
+        subject: 'Save the date - September 4th 2020',
+        html: getEmail({ id: doc.id, name: data1.name }),
+      };
 
-    const mailOptions = {
-      from: 'Tariq & Irina <info@nearlywedded.com>',
-      to: 'tic084@gmail.com',
-      subject: 'Save the date - September 4th 2020',
-      html: getEmail({ id: doc.id, name: data1.name }),
-    };
+      return transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          data.data.err = `err: ${err.toString()}`;
+          data.data.success = false;
+          return res.json(data);
+        }
+        return res.json(data);
+      });
+    } catch (err) {
+      console.log('sendEmail', err);
+    }
+    return res.json(data);
+  });
+});
 
-    return transporter.sendMail(mailOptions, (err, info) => {
-      if (err) {
-        return res.json({ data: `err: ${err.toString()}`, success: false });
+module.exports.getEvents = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const data = { data: { events: [] } };
+    try {
+      const data1 = await db.collection('events').get();
+      data.data = {
+        events: data1.docs.map(doc => ({ id: doc.id, ...doc.data() })),
+      };
+    } catch (err) {
+      console.log('getEvents', err);
+    }
+    return res.json(data);
+  });
+});
+
+module.exports.getUser = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const { userId } = req.body.data;
+    const data = { data: { user: { id: null } } };
+    try {
+      const ref = db.collection('users').doc(userId);
+      const doc = await ref.get();
+      if (!doc.exists) {
+        return res.json(data);
       }
-      return res.json({ data: 'sent', success: true });
-    });
+      const data1 = doc.data();
+      data.data.user = { id: doc.id, name: data1.name };
+    } catch (err) {
+      console.log('getUser', err);
+    }
+    return res.json(data);
   });
 });
 
-app.get('/data/events/', async (req, res) => {
-  const data1 = await db.collection('events').get();
-  const data = {
-    events: data1.docs.map(doc => ({ id: doc.id, ...doc.data() })),
-  };
-  return res.json(data);
-});
+module.exports.viewSaveTheDate = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const { userId } = req.body.data;
+    const data = { data: { saveDateViewDatesLength: 1 } };
+    try {
+      const ref = db.collection('users').doc(userId);
+      const doc = await ref.get();
+      if (!doc.exists) {
+        data.data.saveDateViewDatesLength = -1;
+        return res.json(data);
+      }
 
-app.get('/data/user/:userId/', async (req, res) => {
-  const { userId } = req.params;
-  const ref = db.collection('users').doc(userId);
-  const doc = await ref.get();
-  if (!doc.exists) {
-    return res.json({ user: { id: null } });
-  }
-  const data1 = doc.data();
-  const user = { id: doc.id, name: data1.name };
-  return res.json({ user });
-});
+      const ipInfo = req.ipInfo;
+      const data1 = doc.data();
+      const saveDateViewDates = {
+        date: new Date(),
+        map:
+          ipInfo && ipInfo.ll && ipInfo.ll.length >= 2
+            ? `http://www.google.com/maps/place/${ipInfo.ll[0]},${ipInfo.ll[1]}`
+            : '',
+        info: ipInfo || null,
+      };
 
-app.post('/data/user/saveTheDateViews/:userId/', async (req, res) => {
-  const { userId } = req.params;
-  const ref = db.collection('users').doc(userId);
-  const doc = await ref.get();
-  if (!doc.exists) {
-    return res.json({ saveDateViewDatesLength: -1 });
-  }
-
-  const ipInfo = req.ipInfo;
-  const data1 = doc.data();
-  const saveDateViewDates = {
-    date: new Date(),
-    map:
-      ipInfo && ipInfo.ll && ipInfo.ll.length >= 2
-        ? `http://www.google.com/maps/place/${ipInfo.ll[0]},${ipInfo.ll[1]}`
-        : '',
-    info: ipInfo,
-  };
-
-  ref.update({
-    saveDateViewDates: admin.firestore.FieldValue.arrayUnion(saveDateViewDates),
+      ref.update({
+        saveDateViewDates: admin.firestore.FieldValue.arrayUnion(
+          saveDateViewDates
+        ),
+      });
+      data.data.saveDateViewDatesLength = data1.saveDateViewDates.length + 1;
+    } catch (err) {
+      console.log('viewSaveTheDate', err);
+    }
+    return res.json(data);
   });
-
-  const saveDateViewDatesLength = !data1.saveDateViewDates
-    ? 1
-    : data1.saveDateViewDates.length + 1;
-  return res.json({ saveDateViewDatesLength });
 });
 
 app.use(express.static(path.join(__dirname, 'build')));
 
 if (process.env.NODE_ENV === 'development') {
-  app.listen(process.env.PORT || 8080);
+  app.listen(process.env.PORT || 5000);
 }
-
-const api = functions.https.onRequest(app);
-
-module.exports = { api, sendEmail };
