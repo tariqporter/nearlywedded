@@ -1,17 +1,15 @@
 const fs = require('fs');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const express = require('express');
-const path = require('path');
 const cors = require('cors')({ origin: true });
-const expressip = require('express-ip');
+const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
 const { getEmail } = require('./templates/saveTheDate');
 
 const serviceAccountPath = './function-config.json';
 
-const app = express();
-app.use(expressip().getIpInfoMiddleware);
+// const app = express();
+// app.use(expressip().getIpInfoMiddleware);
 admin.initializeApp({
   credential: fs.existsSync(serviceAccountPath)
     ? admin.credential.cert(require(serviceAccountPath).serviceaccount)
@@ -20,7 +18,7 @@ admin.initializeApp({
 const db = admin.firestore();
 
 // Automatically allow cross-origin requests
-app.use(cors);
+// app.use(cors);
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
@@ -34,6 +32,32 @@ const transporter = nodemailer.createTransport({
     privateKey: functions.config().mailer.private_key,
   },
 });
+
+const getIpInfo = ip => {
+  // IPV6 addresses can include IPV4 addresses
+  // So req.ip can be '::ffff:86.3.182.58'
+  // However geoip-lite returns null for these
+  if (ip.includes('::ffff:')) {
+    ip = ip.split(':').reverse()[0];
+  }
+  const lookedUpIP = geoip.lookup(ip);
+  if (ip === '127.0.0.1' || ip === '::1') {
+    return { error: "This won't work on localhost" };
+  }
+  if (!lookedUpIP) {
+    return { error: 'Error occured while trying to process the information' };
+  }
+  return lookedUpIP;
+};
+
+const getLocationInfo = req => {
+  const xForwardedFor = (req.headers['x-forwarded-for'] || '').replace(
+    /:\d+$/,
+    ''
+  );
+  const ip = xForwardedFor || req.connection.remoteAddress;
+  req.ipInfo = getIpInfo(ip);
+};
 
 module.exports.sendEmail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
@@ -111,7 +135,7 @@ module.exports.viewSaveTheDate = functions.https.onRequest((req, res) => {
         return res.json(data);
       }
 
-      const ipInfo = req.ipInfo;
+      const ipInfo = getLocationInfo(req);
       const data1 = doc.data();
       const saveDateViewDates = {
         date: new Date(),
@@ -135,8 +159,8 @@ module.exports.viewSaveTheDate = functions.https.onRequest((req, res) => {
   });
 });
 
-app.use(express.static(path.join(__dirname, 'build')));
+// app.use(express.static(path.join(__dirname, 'build')));
 
-if (process.env.NODE_ENV === 'development') {
-  app.listen(process.env.PORT || 5000);
-}
+// if (process.env.NODE_ENV === 'development') {
+//   app.listen(process.env.PORT || 5000);
+// }
