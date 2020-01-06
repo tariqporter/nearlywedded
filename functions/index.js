@@ -2,9 +2,9 @@ const fs = require('fs');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const cors = require('cors')({ origin: true });
-const geoip = require('geoip-lite');
 const nodemailer = require('nodemailer');
 const { getEmail } = require('./templates/saveTheDate');
+const { getLocationInfo } = require('./getLocationInfo');
 
 const serviceAccountPath = './function-config.json';
 
@@ -27,32 +27,6 @@ const transporter = nodemailer.createTransport({
     privateKey: functions.config().mailer.private_key,
   },
 });
-
-const getIpInfo = ip => {
-  // IPV6 addresses can include IPV4 addresses
-  // So req.ip can be '::ffff:86.3.182.58'
-  // However geoip-lite returns null for these
-  if (ip.includes('::ffff:')) {
-    ip = ip.split(':').reverse()[0];
-  }
-  const lookedUpIP = geoip.lookup(ip);
-  if (ip === '127.0.0.1' || ip === '::1') {
-    return { error: "This won't work on localhost" };
-  }
-  if (!lookedUpIP) {
-    return { error: 'Error occured while trying to process the information' };
-  }
-  return lookedUpIP;
-};
-
-const getLocationInfo = req => {
-  const xForwardedFor = (req.headers['x-forwarded-for'] || '').replace(
-    /:\d+$/,
-    ''
-  );
-  const ip = xForwardedFor || req.connection.remoteAddress;
-  return getIpInfo(ip);
-};
 
 module.exports.sendEmail = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
