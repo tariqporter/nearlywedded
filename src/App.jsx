@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { getEventsAction, getUserAction } from './actions';
 import Events from './components/Events';
 import { withStyles } from '@material-ui/core';
+import { useHistory } from 'react-router-dom';
 import qs from 'query-string';
 
 const styles = theme => ({
@@ -23,8 +24,7 @@ const styles = theme => ({
     },
   },
   img: {
-    background:
-      'url(/img/SLIDER-holly-hedge-wedding-country-romantic-fieldstone-barn-fountain-flowers-nighttime-beautiful1.jpg) 50% 50%',
+    background: 'url(/img/holly-hedge.jpg) 50% 50%',
     height: '300px',
     backgroundSize: 'cover',
   },
@@ -47,14 +47,20 @@ const App = props => {
     getUser = () => {},
     getEvents = () => {},
   } = props;
+  const history = useHistory();
 
   useEffect(() => {
     getEvents();
   });
 
   useEffect(() => {
-    const userId = qs.parse(location.search).userid;
+    const search = qs.parse(location.search);
+    const userId = search.userid;
     if (userId) {
+      delete search.userid;
+      const newSearch = qs.stringify(search);
+      console.log(userId);
+      history.replace(`${location.pathname}?${newSearch}`);
       getUser(userId);
     }
   }, [location]);
