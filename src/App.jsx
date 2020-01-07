@@ -23,6 +23,10 @@ const styles = theme => ({
       width: 700,
     },
   },
+  imgContainer: {
+    marginTop: 20,
+    position: 'relative',
+  },
   img: {
     background: 'url(/img/holly-hedge.jpg) 50% 50%',
     height: '300px',
@@ -69,7 +73,7 @@ const App = props => {
     <div className={classes.root}>
       <Header />
       <div className={classes.body}>
-        <div style={{ marginTop: 20, position: 'relative' }}>
+        <div className={classes.imgContainer}>
           <div alt="Holly Hedge" className={classes.img} />
           <a
             href="https://www.hollyhedge.com/"
