@@ -30,8 +30,10 @@ const Home = props => {
   return (
     <div className={classes.root}>
       <Typography variant="body1" align="left" gutterBottom>
-        Your presence is enough of a present to us! But for those of you who are
-        stubborn, we've put together a wish-list to help you out.
+        We know that some of you are traveling very far to join us for our
+        special day. Your presence is enough of a present to us! But for those
+        of you who are stubborn, we've put together a wish-list to help you out
+        with Zola.
       </Typography>
       <div className={classes.honeymoonPill}>
         <a
