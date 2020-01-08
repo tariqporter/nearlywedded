@@ -31,7 +31,7 @@ const styles = theme => ({
 const tabs = ['/', '/travel', '/registry'];
 
 const App = props => {
-  const { classes = '', getUser = () => {} } = props;
+  const { classes = '', getUser } = props;
   const history = useHistory();
   const theme = useTheme();
   const location = useLocation();
@@ -49,8 +49,8 @@ const App = props => {
       const newSearch = qs.stringify(search);
       console.log(userId);
       history.replace(`${location.pathname}?${newSearch}`);
-      getUser(userId);
     }
+    getUser(userId);
   }, [location]);
 
   const tabChange = (e, value) => {
@@ -65,7 +65,12 @@ const App = props => {
   return (
     <div className={classes.root}>
       <Header />
-      <Tabs value={tabValue} onChange={tabChange}>
+      <Tabs
+        value={tabValue}
+        onChange={tabChange}
+        variant="scrollable"
+        scrollButtons="auto"
+      >
         <Tab icon={<HomeOutlined />} label="Home" />
         <Tab
           icon={

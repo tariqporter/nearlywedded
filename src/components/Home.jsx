@@ -49,7 +49,7 @@ const Home = props => {
         </a>
       </div>
       <Button
-        style={{ marginTop: 20 }}
+        style={{ margin: '20px 0' }}
         variant="contained"
         component="a"
         href="https://goo.gl/maps/sTQF2Efp7T9qFUKH9"

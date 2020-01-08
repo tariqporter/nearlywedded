@@ -25,17 +25,20 @@ export const getEventsAction = () => async dispatch => {
 };
 
 export const getUserAction = userId => async dispatch => {
-  const getUser = firebase.functions().httpsCallable('getUser');
+  let user = null;
+  if (userId) {
+    const getUser = firebase.functions().httpsCallable('getUser');
 
-  const result = await getUser({ userId }).catch(err => console.log(err));
-  console.log('getUser', result);
+    const result = await getUser({ userId }).catch(err => console.log(err));
+    console.log('getUser', result);
 
-  const { user } = result.data;
+    user = result.data.user;
+  }
+
   dispatch({
     type: ACTION.SET_USER,
     user,
   });
-  return result;
 };
 
 export const updateSaveTheDateViewsAction = userId => async dispatch => {

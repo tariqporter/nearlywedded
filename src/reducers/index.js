@@ -1,5 +1,6 @@
 import { ACTION } from '../actions';
 import { cloneDeep } from 'lodash';
+import ls from 'local-storage';
 
 const diffTime = new Date(2020, 8, 4).getTime() - new Date().getTime();
 const daysUntilWedding = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -21,7 +22,16 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case ACTION.SET_USER: {
-      return { ...state, user: action.user || initialState.user };
+      const { user } = action;
+      let currentUser = initialState.user;
+      if (user) {
+        currentUser = user;
+        ls.set('user', user);
+      } else {
+        const cacheUser = ls.get('user');
+        if (cacheUser) currentUser = cacheUser;
+      }
+      return { ...state, user: currentUser };
     }
     case ACTION.SET_EVENTS: {
       return { ...state, events: action.events };
