@@ -38,13 +38,15 @@ const Index = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route
-            exact
-            path="/save-the-date/:userId?"
-            render={props => <SaveTheDate {...props} />}
-          />
-          <Route path="/admin" render={props => <Admin {...props} />} />
-          <Route path="/:userId?" render={props => <App {...props} />} />
+          <Route exact path="/save-the-date/:userId?">
+            <SaveTheDate />
+          </Route>
+          <Route path="/admin">
+            <Admin />
+          </Route>
+          <Route path="/:userId?">
+            <App />
+          </Route>
         </Switch>
       </BrowserRouter>
     </Provider>

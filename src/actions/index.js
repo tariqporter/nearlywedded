@@ -1,4 +1,3 @@
-// import axios from 'axios';
 import * as firebase from 'firebase/app';
 
 export const ACTION = {
@@ -15,7 +14,7 @@ export const getEventsAction = () => async dispatch => {
   const getEvents = firebase.functions().httpsCallable('getEvents');
 
   const result = await getEvents().catch(err => console.log(err));
-  console.log('result', result);
+  console.log('getEvents', result);
 
   const { events } = result.data;
   dispatch({
@@ -29,7 +28,7 @@ export const getUserAction = userId => async dispatch => {
   const getUser = firebase.functions().httpsCallable('getUser');
 
   const result = await getUser({ userId }).catch(err => console.log(err));
-  console.log('result', result);
+  console.log('getUser', result);
 
   const { user } = result.data;
   dispatch({
@@ -45,7 +44,7 @@ export const updateSaveTheDateViewsAction = userId => async dispatch => {
   const result = await viewSaveTheDate({ userId }).catch(err =>
     console.log(err)
   );
-  console.log('result', result);
+  console.log('viewSaveTheDate', result);
   return result;
 };
 
@@ -105,7 +104,7 @@ export const sendSaveDateEmailAction = userId => async dispatch => {
   });
 
   const result = await sendEmail({ userId }).catch(err => console.log(err));
-  console.log('result', result);
+  console.log('sendEmail', result);
 
   dispatch({
     type: ACTION.SENT_EMAIL,

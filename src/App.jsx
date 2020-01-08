@@ -1,12 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from './components/Header';
+import SwipeableViews from 'react-swipeable-views';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getEventsAction, getUserAction } from './actions';
-import Events from './components/Events';
-import { withStyles } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
+import { getUserAction } from './actions';
+import { withStyles, Tabs, Tab, useTheme } from '@material-ui/core';
+import {
+  HomeOutlined,
+  HotelOutlined,
+  AirplanemodeActiveOutlined,
+  CardGiftcardOutlined,
+} from '@material-ui/icons';
+import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
+import Home from './components/Home';
+import TabPanel from './components/TabPanel';
+import Registry from './components/Registry';
 
 const styles = theme => ({
   root: {
@@ -17,47 +26,22 @@ const styles = theme => ({
     alignItems: 'center',
     height: '100%',
   },
-  body: {
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-      width: 700,
-    },
-  },
-  imgContainer: {
-    marginTop: 20,
-    position: 'relative',
-  },
-  img: {
-    background: 'url(/img/holly-hedge.jpg) 50% 50%',
-    height: '300px',
-    backgroundSize: 'cover',
-  },
-  link: {
-    position: 'absolute',
-    bottom: 5,
-    right: 5,
-    color: '#fff',
-  },
-  countdown: {
-    fontWeight: 'bold',
-  },
 });
 
+const tabs = ['/', '/travel', '/registry'];
+
 const App = props => {
-  const {
-    classes = '',
-    daysUntilWedding = null,
-    location = {},
-    getUser = () => {},
-    getEvents = () => {},
-  } = props;
+  const { classes = '', getUser = () => {} } = props;
   const history = useHistory();
+  const theme = useTheme();
+  const location = useLocation();
+  const tabIndex = tabs.indexOf(location.pathname);
+  const [tabValue, setTabValue] = useState(tabIndex === -1 ? 0 : tabIndex);
 
   useEffect(() => {
-    getEvents();
-  });
+    const tabIndex = tabs.indexOf(location.pathname);
+    setTabValue(tabIndex === -1 ? 0 : tabIndex);
 
-  useEffect(() => {
     const search = qs.parse(location.search);
     const userId = search.userid;
     if (userId) {
@@ -69,41 +53,57 @@ const App = props => {
     }
   }, [location]);
 
+  const tabChange = (e, value) => {
+    setTabValue(value);
+    history.push(`${tabs[value]}${location.search}`);
+  };
+
+  const handleChangeIndex = index => {
+    setTabValue(index);
+  };
+
   return (
     <div className={classes.root}>
       <Header />
-      <div className={classes.body}>
-        <div className={classes.imgContainer}>
-          <div alt="Holly Hedge" className={classes.img} />
-          <a
-            href="https://www.hollyhedge.com/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={classes.link}
-          >
-            Holly Hedge Estate
-          </a>
-        </div>
-        <Events />
-        <div className={classes.countdown}>
-          See you in {daysUntilWedding} days!
-        </div>
-      </div>
+      <Tabs value={tabValue} onChange={tabChange}>
+        <Tab icon={<HomeOutlined />} label="Home" />
+        <Tab
+          icon={
+            <span>
+              <HotelOutlined />
+              <AirplanemodeActiveOutlined />
+            </span>
+          }
+          label="Travel & Accommodation"
+        />
+        <Tab icon={<CardGiftcardOutlined />} label="Registry" />
+      </Tabs>
+      <SwipeableViews
+        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+        index={tabValue}
+        onChangeIndex={handleChangeIndex}
+      >
+        <TabPanel value={tabValue} index={0} dir={theme.direction}>
+          <Home />
+        </TabPanel>
+        <TabPanel value={tabValue} index={1} dir={theme.direction}>
+          Hotels and flights
+        </TabPanel>
+        <TabPanel value={tabValue} index={2} dir={theme.direction}>
+          <Registry />
+        </TabPanel>
+      </SwipeableViews>
     </div>
   );
 };
 
 const mapStateToProps = state => {
-  const { daysUntilWedding } = state;
-  return {
-    daysUntilWedding,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch, ownProps) =>
   bindActionCreators(
     {
-      getEvents: getEventsAction,
       getUser: getUserAction,
     },
     dispatch

@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withStyles, Grid } from '@material-ui/core';
@@ -38,27 +38,33 @@ const styles = {
   },
 };
 
-class Events extends PureComponent {
-  render() {
-    const { classes, events } = this.props;
-    return (
-      <div className={classes.root}>
-        {events.map(event => (
-          <Grid container key={event.id} className={classes.event}>
-            <Grid item xs={12} md={6} className={classes.eventLeft1}>
-              <div>{event.time}</div>
-              <div>{event.location}</div>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <h4 className={classes.eventTitle}>{event.title}</h4>
-              <div>{event.description}</div>
-            </Grid>
+const Events = props => {
+  const { classes, events, getEvents = () => {} } = props;
+
+  useEffect(() => {
+    // don't get events if we already have them
+    if (!events.length) {
+      getEvents();
+    }
+  }, []);
+
+  return (
+    <div className={classes.root}>
+      {events.map(event => (
+        <Grid container key={event.id} className={classes.event}>
+          <Grid item xs={12} md={6} className={classes.eventLeft1}>
+            <div>{event.time}</div>
+            <div>{event.location}</div>
           </Grid>
-        ))}
-      </div>
-    );
-  }
-}
+          <Grid item xs={12} md={6}>
+            <h4 className={classes.eventTitle}>{event.title}</h4>
+            <div>{event.description}</div>
+          </Grid>
+        </Grid>
+      ))}
+    </div>
+  );
+};
 
 const mapStateToProps = state => {
   const { events } = state;
