@@ -23,8 +23,8 @@ const Faq = props => {
           </Typography>
           <Typography variant="body2" component="p">
             To allow all of our guests to have an enjoyable and relaxing night, we've chosen to make our wedding
-            adults-only. We know that many of you are travelling and so will have nannies on-premises to look after any
-            children you may bring.
+            adults-only. We know that many of you are travelling and upon request, we will arrange for a nanny service
+            to be on the premises to look after your children.
           </Typography>
         </CardContent>
       </Card>
