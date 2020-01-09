@@ -81,7 +81,4 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     dispatch
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Events));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Events));

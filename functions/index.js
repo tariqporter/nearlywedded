@@ -71,6 +71,19 @@ module.exports.getEvents = functions.https.onRequest((req, res) => {
   });
 });
 
+module.exports.getFaqs = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const data = { data: { faqs: [] } };
+    try {
+      const data1 = await db.collection('faqs').get();
+      data.data.faqs = data1.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (err) {
+      console.log('getFaqs', err);
+    }
+    return res.json(data);
+  });
+});
+
 module.exports.getUser = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     const { userId } = req.body.data;

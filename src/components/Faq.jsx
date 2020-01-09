@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withStyles, Card, CardContent, Typography } from '@material-ui/core';
+import { getFaqsAction } from '../actions';
 
 const styles = theme => ({
   root: {
@@ -13,19 +14,27 @@ const styles = theme => ({
 });
 
 const Faq = props => {
-  const { classes } = props;
+  const { classes, faqs, getFaqs } = props;
+  useEffect(() => {
+    // don't get events if we already have them
+    if (!faqs.length) {
+      getFaqs();
+    }
+  }, []);
   return (
     <div className={classes.root}>
       <Card variant="outlined">
         <CardContent>
-          <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
-            Are children invited to the wedding?
-          </Typography>
-          <Typography variant="body2" component="p">
-            To allow all of our guests to have an enjoyable and relaxing night, we've chosen to make our wedding
-            adults-only. We know that many of you are travelling and upon request, we will arrange for a nanny service
-            to be on the premises to look after your children.
-          </Typography>
+          {faqs.map(faq => (
+            <div key={faq.id}>
+              <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+                {faq.question}
+              </Typography>
+              <Typography variant="body2" component="p">
+                {faq.answer}
+              </Typography>
+            </div>
+          ))}
         </CardContent>
       </Card>
     </div>
@@ -33,9 +42,17 @@ const Faq = props => {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    faqs: state.faqs,
+  };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) =>
+  bindActionCreators(
+    {
+      getFaqs: getFaqsAction,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Faq));

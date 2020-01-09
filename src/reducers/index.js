@@ -13,6 +13,7 @@ const initialState = {
     rsvp: null,
   },
   events: [],
+  faqs: [],
   daysUntilWedding,
   signedIn: true,
   signInError: '',
@@ -36,7 +37,12 @@ export default (state = initialState, action) => {
       return { ...state, user };
     }
     case ACTION.SET_EVENTS: {
-      return { ...state, events: action.events };
+      const { events } = action;
+      return { ...state, events };
+    }
+    case ACTION.SET_FAQS: {
+      const { faqs } = action;
+      return { ...state, faqs };
     }
     case ACTION.SET_SIGN_IN_ERROR: {
       const { signedIn, signInError } = action;

@@ -2,6 +2,7 @@ import * as firebase from 'firebase/app';
 
 export const ACTION = {
   SET_EVENTS: 'SET_EVENTS',
+  SET_FAQS: 'SET_FAQS',
   SET_USER: 'SET_USER',
   SET_USERS: 'SET_USERS',
   SET_SIGN_IN_ERROR: 'SET_SIGN_IN_ERROR',
@@ -26,6 +27,20 @@ export const getEventsAction = () => async dispatch => {
   return result;
 };
 
+export const getFaqsAction = () => async dispatch => {
+  const getFaqs = firebase.functions().httpsCallable('getFaqs');
+
+  const result = await getFaqs().catch(err => console.log(err));
+  console.log('getFaqs', result);
+  if (result) {
+    const { faqs } = result.data;
+    dispatch({
+      type: ACTION.SET_FAQS,
+      faqs,
+    });
+  }
+  return result;
+};
 export const getUserAction = userId => async (dispatch, getState) => {
   userId = userId || getState().user.id;
   const getUser = firebase.functions().httpsCallable('getUser');
