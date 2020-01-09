@@ -5,9 +5,12 @@ import ls from 'local-storage';
 const diffTime = new Date(2020, 8, 4).getTime() - new Date().getTime();
 const daysUntilWedding = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
+const cacheUser = ls.get('user');
+
 const initialState = {
-  user: {
+  user: cacheUser || {
     id: null,
+    rsvp: null,
   },
   events: [],
   daysUntilWedding,
@@ -23,15 +26,14 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case ACTION.SET_USER: {
       const { user } = action;
-      let currentUser = initialState.user;
-      if (user) {
-        currentUser = user;
-        ls.set('user', user);
-      } else {
-        const cacheUser = ls.get('user');
-        if (cacheUser) currentUser = cacheUser;
-      }
-      return { ...state, user: currentUser };
+      ls.set('user', user);
+      return { ...state, user };
+    }
+    case ACTION.SUBMIT_RSVP_SELECTION: {
+      const { rsvp } = action;
+      const user = { ...state.user, rsvp };
+      ls.set('user', user);
+      return { ...state, user };
     }
     case ACTION.SET_EVENTS: {
       return { ...state, events: action.events };
@@ -48,9 +50,7 @@ export default (state = initialState, action) => {
     case ACTION.SET_SAVE_DATE_SEARCH: {
       const { users } = state;
       const saveDateSearch = action.saveDateSearch.toLocaleLowerCase();
-      const filterUsers = users.filter(user =>
-        user.name.toLocaleLowerCase().includes(saveDateSearch)
-      );
+      const filterUsers = users.filter(user => user.name.toLocaleLowerCase().includes(saveDateSearch));
       return { ...state, saveDateSearch, filterUsers };
     }
     case ACTION.SENDING_EMAIL: {

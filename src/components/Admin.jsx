@@ -99,9 +99,7 @@ const Admin = props => {
             />
           </>
         )}
-        <Button
-          onClick={() => logInOut(credentials.email, credentials.password)}
-        >
+        <Button onClick={() => logInOut(credentials.email, credentials.password)}>
           {signedIn ? 'Log Out' : 'Log In'}
         </Button>
       </div>
@@ -153,23 +151,17 @@ const Admin = props => {
                       {user.name}
                     </TableCell>
                     <TableCell align="left">{user.email}</TableCell>
-                    <TableCell align="left">
-                      {user.saveDateViewDates.length}
-                    </TableCell>
+                    <TableCell align="left">{user.saveDateViewDates.length}</TableCell>
                     <TableCell align="left">
                       {user.saveDateViewDates.length
-                        ? new Date(
-                            user.saveDateViewDates.pop().date.seconds * 1000
-                          ).toLocaleDateString()
+                        ? new Date(user.saveDateViewDates.pop().date.seconds * 1000).toLocaleDateString()
                         : '—'}
                     </TableCell>
                     <TableCell align="left">
                       {sendingEmailUserIds.includes(user.id) ? (
                         <CircularProgress />
                       ) : (
-                        <Button onClick={() => sendSaveDateEmail(user.id)}>
-                          Send Email
-                        </Button>
+                        <Button onClick={() => sendSaveDateEmail(user.id)}>Send Email</Button>
                       )}
                     </TableCell>
                   </TableRow>
@@ -183,19 +175,13 @@ const Admin = props => {
   );
 };
 
-const mapStateToProps = ({
-  filterUsers,
-  signedIn,
-  signInError,
-  saveDateSearch,
-  sendingEmailUserIds,
-}) => {
+const mapStateToProps = state => {
   return {
-    filterUsers,
-    signedIn,
-    signInError,
-    saveDateSearch,
-    sendingEmailUserIds,
+    filterUsers: state.filterUsers,
+    signedIn: state.signedIn,
+    signInError: state.signInError,
+    saveDateSearch: state.saveDateSearch,
+    sendingEmailUserIds: state.sendingEmailUserIds,
   };
 };
 
@@ -211,7 +197,4 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     dispatch
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Admin));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Admin));

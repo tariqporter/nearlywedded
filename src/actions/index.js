@@ -8,6 +8,7 @@ export const ACTION = {
   SET_SAVE_DATE_SEARCH: 'SET_SAVE_DATE_SEARCH',
   SENDING_EMAIL: 'SENDING_EMAIL',
   SENT_EMAIL: 'SENT_EMAIL',
+  SUBMIT_RSVP_SELECTION: 'SUBMIT_RSVP_SELECTION',
 };
 
 export const getEventsAction = () => async dispatch => {
@@ -15,38 +16,36 @@ export const getEventsAction = () => async dispatch => {
 
   const result = await getEvents().catch(err => console.log(err));
   console.log('getEvents', result);
-
-  const { events } = result.data;
-  dispatch({
-    type: ACTION.SET_EVENTS,
-    events,
-  });
+  if (result) {
+    const { events } = result.data;
+    dispatch({
+      type: ACTION.SET_EVENTS,
+      events,
+    });
+  }
   return result;
 };
 
-export const getUserAction = userId => async dispatch => {
-  let user = null;
-  if (userId) {
-    const getUser = firebase.functions().httpsCallable('getUser');
+export const getUserAction = userId => async (dispatch, getState) => {
+  userId = userId || getState().user.id;
+  const getUser = firebase.functions().httpsCallable('getUser');
 
-    const result = await getUser({ userId }).catch(err => console.log(err));
-    console.log('getUser', result);
+  const result = await getUser({ userId }).catch(err => console.log(err));
+  // console.log('getUser', result);
+  if (result) {
+    const { user } = result.data;
 
-    user = result.data.user;
+    dispatch({
+      type: ACTION.SET_USER,
+      user,
+    });
   }
-
-  dispatch({
-    type: ACTION.SET_USER,
-    user,
-  });
 };
 
 export const updateSaveTheDateViewsAction = userId => async dispatch => {
   const viewSaveTheDate = firebase.functions().httpsCallable('viewSaveTheDate');
 
-  const result = await viewSaveTheDate({ userId }).catch(err =>
-    console.log(err)
-  );
+  const result = await viewSaveTheDate({ userId }).catch(err => console.log(err));
   console.log('viewSaveTheDate', result);
   return result;
 };
@@ -69,10 +68,7 @@ export const getUsersAction = () => async dispatch => {
   });
 };
 
-export const logInOutAction = (email, password) => async (
-  dispatch,
-  getState
-) => {
+export const logInOutAction = (email, password) => async (dispatch, getState) => {
   const { signedIn } = getState();
   if (signedIn) {
     const signedOut = await firebase.auth().signOut();
@@ -112,6 +108,18 @@ export const sendSaveDateEmailAction = userId => async dispatch => {
   dispatch({
     type: ACTION.SENT_EMAIL,
     userId,
+  });
+  return result;
+};
+
+export const submitRsvpSelectionAction = (rsvp, guestName) => async (dispatch, getState) => {
+  const userId = getState().user.id;
+  const submitRsvpSelection = firebase.functions().httpsCallable('submitRsvpSelection');
+  const result = await submitRsvpSelection({ userId, rsvp, guestName }).catch(err => console.log(err));
+  console.log('submitRsvpSelection', result);
+  dispatch({
+    type: ACTION.SUBMIT_RSVP_SELECTION,
+    rsvp,
   });
   return result;
 };

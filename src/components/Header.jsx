@@ -16,29 +16,29 @@ const styles = theme => ({
     zIndex: 1,
     display: 'flex',
     [theme.breakpoints.down('sm')]: {
-      flexDirection: 'column'
+      flexDirection: 'column',
     },
   },
   titleContainer: {
-    margin: 'auto'
+    margin: 'auto',
   },
   welcomeContainer: {
     alignSelf: 'center',
     position: 'absolute',
     padding: 10,
     [theme.breakpoints.down('sm')]: {
-      position: 'relative'
+      position: 'relative',
     },
   },
   title: {
-    margin: '5px 0'
+    margin: '5px 0',
   },
   subTitle: {
-    margin: '5px 0'
+    margin: '5px 0',
   },
   cursive: {
-    fontFamily: "'Cedarville Cursive', cursive"
-  }
+    fontFamily: "'Cedarville Cursive', cursive",
+  },
 });
 
 class Header extends PureComponent {
@@ -47,15 +47,16 @@ class Header extends PureComponent {
     return (
       <div className={classes.root}>
         <div className={classes.welcomeContainer}>
-          {
-            user.id &&
+          {user.id && (
             <div>
-              <span>Welcome { user.name }!</span>
+              <span>Welcome {user.name}!</span>
             </div>
-          }
+          )}
         </div>
         <div className={classes.titleContainer}>
-          <h1 className={classes.title}>Tariq <span className={classes.cursive}>&amp;</span> Irina</h1>
+          <h1 className={classes.title}>
+            Tariq <span className={classes.cursive}>&amp;</span> Irina
+          </h1>
           <h4 className={classes.subTitle}>September 4 2020</h4>
         </div>
       </div>
@@ -63,14 +64,13 @@ class Header extends PureComponent {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { user } = state;
   return {
-    user
-  }
-}
+    user,
+  };
+};
 
-const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({
-}, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Header));

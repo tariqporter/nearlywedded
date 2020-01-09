@@ -63,9 +63,7 @@ module.exports.getEvents = functions.https.onRequest((req, res) => {
     const data = { data: { events: [] } };
     try {
       const data1 = await db.collection('events').get();
-      data.data = {
-        events: data1.docs.map(doc => ({ id: doc.id, ...doc.data() })),
-      };
+      data.data.events = data1.docs.map(doc => ({ id: doc.id, ...doc.data() }));
     } catch (err) {
       console.log('getEvents', err);
     }
@@ -83,8 +81,8 @@ module.exports.getUser = functions.https.onRequest((req, res) => {
       if (!doc.exists) {
         return res.json(data);
       }
-      const data1 = doc.data();
-      data.data.user = { id: doc.id, name: data1.name };
+      const { saveDateViewDates, ...data1 } = doc.data();
+      data.data.user = { id: doc.id, ...data1 };
     } catch (err) {
       console.log('getUser', err);
     }
@@ -116,13 +114,34 @@ module.exports.viewSaveTheDate = functions.https.onRequest((req, res) => {
       };
 
       ref.update({
-        saveDateViewDates: admin.firestore.FieldValue.arrayUnion(
-          saveDateViewDates
-        ),
+        saveDateViewDates: admin.firestore.FieldValue.arrayUnion(saveDateViewDates),
       });
       data.data.saveDateViewDatesLength = data1.saveDateViewDates.length + 1;
     } catch (err) {
       console.log('viewSaveTheDate', err);
+    }
+    return res.json(data);
+  });
+});
+
+module.exports.submitRsvpSelection = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const { userId, rsvp, guestName } = req.body.data;
+    const data = { data: { rsvp, guestName } };
+    try {
+      const ref = db.collection('users').doc(userId);
+      const doc = await ref.get();
+      if (!doc.exists) {
+        data.data.rsvp = 'error';
+        return res.json(data);
+      }
+      const data1 = doc.data();
+      const updateObj = {};
+      if (!data1.rsvp) updateObj.rsvp = rsvp;
+      if (guestName) updateObj.guestName = guestName;
+      ref.update(updateObj);
+    } catch (err) {
+      console.log('submitRsvpSelection', err);
     }
     return res.json(data);
   });

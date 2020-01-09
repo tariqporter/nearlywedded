@@ -10,12 +10,16 @@ import {
   HotelOutlined,
   AirplanemodeActiveOutlined,
   CardGiftcardOutlined,
+  EventAvailableOutlined,
+  LiveHelpOutlined,
 } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 import Home from './components/Home';
 import TabPanel from './components/TabPanel';
 import Registry from './components/Registry';
+import Rsvp from './components/Rsvp';
+import Faq from './components/Faq';
 
 const styles = theme => ({
   root: {
@@ -28,7 +32,7 @@ const styles = theme => ({
   },
 });
 
-const tabs = ['/', '/travel', '/registry'];
+const tabs = ['/', '/travel', '/registry', '/rsvp', '/faq'];
 
 const App = props => {
   const { classes = '', getUser } = props;
@@ -36,6 +40,7 @@ const App = props => {
   const theme = useTheme();
   const location = useLocation();
   const tabIndex = tabs.indexOf(location.pathname);
+  // console.log(tabIndex, location);
   const [tabValue, setTabValue] = useState(tabIndex === -1 ? 0 : tabIndex);
 
   useEffect(() => {
@@ -65,12 +70,7 @@ const App = props => {
   return (
     <div className={classes.root}>
       <Header />
-      <Tabs
-        value={tabValue}
-        onChange={tabChange}
-        variant="scrollable"
-        scrollButtons="auto"
-      >
+      <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto">
         <Tab icon={<HomeOutlined />} label="Home" />
         <Tab
           icon={
@@ -82,6 +82,8 @@ const App = props => {
           label="Travel & Accommodation"
         />
         <Tab icon={<CardGiftcardOutlined />} label="Registry" />
+        <Tab icon={<EventAvailableOutlined />} label="RSVP" />
+        <Tab icon={<LiveHelpOutlined />} label="FAQ" />
       </Tabs>
       <SwipeableViews
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
@@ -96,6 +98,12 @@ const App = props => {
         </TabPanel>
         <TabPanel value={tabValue} index={2} dir={theme.direction}>
           <Registry />
+        </TabPanel>
+        <TabPanel value={tabValue} index={3} dir={theme.direction}>
+          <Rsvp />
+        </TabPanel>
+        <TabPanel value={tabValue} index={4} dir={theme.direction}>
+          <Faq />
         </TabPanel>
       </SwipeableViews>
     </div>
@@ -114,7 +122,4 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     dispatch
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(App));

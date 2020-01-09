@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles, Paper, Button, Typography } from '@material-ui/core';
+import { withStyles, Button, Typography, Card, CardActionArea, CardMedia, CardContent } from '@material-ui/core';
 
 const styles = theme => ({
   root: {
@@ -10,18 +10,11 @@ const styles = theme => ({
       width: 700,
     },
   },
-  honeymoonPill: {
-    '&:hover': {
-      boxShadow: theme.shadows[4],
-    },
+  card: {
+    position: 'relative',
   },
-  honeymoonImg: {
-    background: 'url(/img/resort.jpg) 50% 50%',
-    height: 300,
-    backgroundSize: 'cover',
-  },
-  buttonContainer: {
-    padding: 20,
+  media: {
+    height: 400,
   },
 });
 
@@ -30,10 +23,8 @@ const Home = props => {
   return (
     <div className={classes.root}>
       <Typography variant="body1" align="left" gutterBottom>
-        We know that some of you are traveling very far to join us for our
-        special day. Your presence is enough of a present to us! But for those
-        of you who are stubborn, we've put together a wish-list to help you out
-        with Zola.
+        We know that some of you are traveling very far to join us for our special day. Your presence is enough of a
+        present to us! But for those of you who are stubborn, we've put together a wish-list on Zola to help you out.
       </Typography>
       <div className={classes.honeymoonPill}>
         <a
@@ -42,14 +33,22 @@ const Home = props => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <Paper>
-            <div className={classes.honeymoonImg} />
-            <div className={classes.buttonContainer}>
-              <Button component="div" variant="contained">
+          <Card className={classes.card} variant="outlined">
+            <CardActionArea>
+              <CardMedia className={classes.media} image="/img/resort.jpg" title="Honeymoon Fund" />
+              <CardContent>
+                <Typography gutterBottom variant="h5" component="h2">
+                  Our Honeymoon Fund
+                </Typography>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  We appreciate any help with our honeymoon!
+                </Typography>
+              </CardContent>
+              <Button component="div" variant="contained" style={{ marginBottom: 10 }}>
                 Contribute to Gift
               </Button>
-            </div>
-          </Paper>
+            </CardActionArea>
+          </Card>
         </a>
       </div>
     </div>
@@ -60,10 +59,6 @@ const mapStateToProps = state => {
   return {};
 };
 
-const mapDispatchToProps = (dispatch, ownProps) =>
-  bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({}, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
