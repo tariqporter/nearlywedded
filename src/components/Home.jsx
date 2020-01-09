@@ -39,12 +39,7 @@ const Home = props => {
     <div className={classes.root}>
       <div className={classes.imgContainer}>
         <div alt="Holly Hedge" className={classes.img} />
-        <a
-          href="https://www.hollyhedge.com/"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={classes.link}
-        >
+        <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>
           Holly Hedge Estate
         </a>
       </div>
@@ -58,9 +53,7 @@ const Home = props => {
         <MapOutlined style={{ marginRight: 5 }} /> Map to HollyHedge Estate
       </Button>
       <Events />
-      <div className={classes.countdown}>
-        See you in {daysUntilWedding} days!
-      </div>
+      <div className={classes.countdown}>See you in {daysUntilWedding} days!</div>
     </div>
   );
 };
@@ -72,10 +65,6 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) =>
-  bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({}, dispatch);
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(Home));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Home));
