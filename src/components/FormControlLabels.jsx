@@ -79,7 +79,7 @@ const FormControlLabels = props => {
           control={<Radio />}
           label={
             <div style={{ display: 'flex' }}>
-              <span style={{ alignSelf: 'center' }}>Yes, myself and </span>
+              <span style={{ alignSelf: 'center' }}>Yes, </span>
               <span style={{ marginLeft: 5, paddingBottom: 15 }}>
                 <TextField
                   disabled={disabled || rsvp !== 'yes-plus-one'}
@@ -88,7 +88,7 @@ const FormControlLabels = props => {
                   onChange={e => setGuestName(e.target.value)}
                 />
               </span>
-              <span style={{ alignSelf: 'center' }}>can make it!</span>
+              <span style={{ alignSelf: 'center' }}>and I can make it!</span>
             </div>
           }
         />

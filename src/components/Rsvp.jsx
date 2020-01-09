@@ -56,7 +56,7 @@ const Rsvp = props => {
           <FormControlLabels disabled={!!user.rsvp} rsvp={rsvp} guestName={guestName} setGuestName={setGuestName} />
         </RadioGroup>
       </FormControl>
-      <Button variant="contained" onClick={submitRsvp} disabled={!!user.rsvp}>
+      <Button variant="contained" color="secondary" onClick={submitRsvp} disabled={!!user.rsvp}>
         Submit
       </Button>
       {ReactDOM.createPortal(
