@@ -11,6 +11,9 @@ const styles = theme => ({
       width: 700,
     },
   },
+  card: {
+    marginBottom: 20,
+  },
 });
 
 const Faq = props => {
@@ -25,7 +28,7 @@ const Faq = props => {
     <div className={classes.root}>
       {!faqs.length && <CircularProgress color="secondary" />}
       {faqs.map(faq => (
-        <Card variant="outlined" key={faq.id}>
+        <Card variant="outlined" key={faq.id} className={classes.card}>
           <CardContent>
             <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
               {faq.question}
