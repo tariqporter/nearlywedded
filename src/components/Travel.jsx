@@ -12,7 +12,7 @@ const styles = theme => ({
     },
   },
   heading: {
-    display: 'flex',
+    display: 'inline-flex',
     alignItems: 'center',
     marginBottom: 10,
   },
@@ -44,7 +44,7 @@ const Travel = props => {
         <Card variant="outlined" className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
                 John F. Kennedy International Airport (JFK)
               </Typography>
               <Typography variant="body2" component="p">
@@ -68,7 +68,7 @@ const Travel = props => {
         <Card variant="outlined" className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
                 Newark Liberty International Airport (EWR)
               </Typography>
               <Typography variant="body2" component="p">
@@ -92,7 +92,7 @@ const Travel = props => {
         <Card variant="outlined" className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
                 Philadelphia International Airport (PHL)
               </Typography>
               <Typography variant="body2" component="p">
