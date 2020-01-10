@@ -30,6 +30,9 @@ const styles = theme => ({
     alignItems: 'center',
     height: '100%',
   },
+  tabsContainer: {
+    // padding: '0 40px',
+  },
 });
 
 const tabs = ['/', '/travel', '/registry', '/rsvp', '/faq'];
@@ -70,42 +73,44 @@ const App = props => {
   return (
     <div className={classes.root}>
       <Header />
-      <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto" style={{ width: '95%' }}>
-        <Tab icon={<HomeOutlined />} label="Home" />
-        <Tab
-          icon={
-            <span>
-              <HotelOutlined />
-              <AirplanemodeActiveOutlined />
-            </span>
-          }
-          label="Travel & Accommodation"
-        />
-        <Tab icon={<CardGiftcardOutlined />} label="Registry" />
-        <Tab icon={<EventAvailableOutlined />} label="RSVP" />
-        <Tab icon={<LiveHelpOutlined />} label="FAQ" />
-      </Tabs>
-      <SwipeableViews
-        axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-        index={tabValue}
-        onChangeIndex={handleChangeIndex}
-      >
-        <TabPanel value={tabValue} index={0} dir={theme.direction}>
-          <Home />
-        </TabPanel>
-        <TabPanel value={tabValue} index={1} dir={theme.direction}>
-          Hotels and flights
-        </TabPanel>
-        <TabPanel value={tabValue} index={2} dir={theme.direction}>
-          <Registry />
-        </TabPanel>
-        <TabPanel value={tabValue} index={3} dir={theme.direction}>
-          <Rsvp />
-        </TabPanel>
-        <TabPanel value={tabValue} index={4} dir={theme.direction}>
-          <Faq />
-        </TabPanel>
-      </SwipeableViews>
+      <div className={classes.tabsContainer}>
+        <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto">
+          <Tab icon={<HomeOutlined />} label="Home" />
+          <Tab
+            icon={
+              <span>
+                <HotelOutlined />
+                <AirplanemodeActiveOutlined />
+              </span>
+            }
+            label="Travel & Accommodation"
+          />
+          <Tab icon={<CardGiftcardOutlined />} label="Registry" />
+          <Tab icon={<EventAvailableOutlined />} label="RSVP" />
+          <Tab icon={<LiveHelpOutlined />} label="FAQ" />
+        </Tabs>
+        <SwipeableViews
+          axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
+          index={tabValue}
+          onChangeIndex={handleChangeIndex}
+        >
+          <TabPanel value={tabValue} index={0} dir={theme.direction}>
+            <Home />
+          </TabPanel>
+          <TabPanel value={tabValue} index={1} dir={theme.direction}>
+            Hotels and flights
+          </TabPanel>
+          <TabPanel value={tabValue} index={2} dir={theme.direction}>
+            <Registry />
+          </TabPanel>
+          <TabPanel value={tabValue} index={3} dir={theme.direction}>
+            <Rsvp />
+          </TabPanel>
+          <TabPanel value={tabValue} index={4} dir={theme.direction}>
+            <Faq />
+          </TabPanel>
+        </SwipeableViews>
+      </div>
     </div>
   );
 };

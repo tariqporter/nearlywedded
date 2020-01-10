@@ -46,7 +46,7 @@ const Home = props => {
     <div className={classes.root}>
       {!user.rsvp && (
         <Button variant="contained" color="secondary" onClick={browseToRsvp}>
-          Please take a moment RSVP
+          Please take a moment to RSVP
         </Button>
       )}
       <div className={classes.imgContainer}>

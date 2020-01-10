@@ -23,20 +23,18 @@ const Faq = props => {
   }, []);
   return (
     <div className={classes.root}>
-      <Card variant="outlined">
-        <CardContent>
-          {faqs.map(faq => (
-            <div key={faq.id}>
-              <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
-                {faq.question}
-              </Typography>
-              <Typography variant="body2" component="p">
-                {faq.answer}
-              </Typography>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+      {faqs.map(faq => (
+        <Card variant="outlined" key={faq.id}>
+          <CardContent>
+            <Typography variant="h5" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              {faq.question}
+            </Typography>
+            <Typography variant="body2" component="p">
+              {faq.answer}
+            </Typography>
+          </CardContent>
+        </Card>
+      ))}
     </div>
   );
 };
