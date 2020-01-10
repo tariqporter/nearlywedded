@@ -70,7 +70,7 @@ const App = props => {
   return (
     <div className={classes.root}>
       <Header />
-      <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto">
+      <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto" style={{ width: '95%' }}>
         <Tab icon={<HomeOutlined />} label="Home" />
         <Tab
           icon={
