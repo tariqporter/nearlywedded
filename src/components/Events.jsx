@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles, Grid } from '@material-ui/core';
+import { withStyles, Grid, CircularProgress } from '@material-ui/core';
 import { getEventsAction } from '../actions';
 
 const styles = {
@@ -50,6 +50,7 @@ const Events = props => {
 
   return (
     <div className={classes.root}>
+      {!events.length && <CircularProgress color="secondary" />}
       {events.map(event => (
         <Grid container key={event.id} className={classes.event}>
           <Grid item xs={12} md={6} className={classes.eventLeft1}>

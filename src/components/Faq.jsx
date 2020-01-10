@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles, Card, CardContent, Typography } from '@material-ui/core';
+import { withStyles, Card, CardContent, Typography, CircularProgress } from '@material-ui/core';
 import { getFaqsAction } from '../actions';
 
 const styles = theme => ({
@@ -23,6 +23,7 @@ const Faq = props => {
   }, []);
   return (
     <div className={classes.root}>
+      {!faqs.length && <CircularProgress color="secondary" />}
       {faqs.map(faq => (
         <Card variant="outlined" key={faq.id}>
           <CardContent>
