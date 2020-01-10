@@ -22,7 +22,8 @@ const Rsvp = props => {
   const { classes, user, submitRsvpSelection } = props;
   const [rsvp, setRsvp] = useState(user.rsvp || 'no');
   const [guestName, setGuestName] = useState(user.guestName || '');
-  const [snackOpen, setSnackOpen] = React.useState(false);
+  const [snackOpen, setSnackOpen] = useState(false);
+  const [guestError, setGuestError] = useState('');
 
   useEffect(() => {
     if (user.rsvp) {
@@ -36,6 +37,11 @@ const Rsvp = props => {
   };
 
   const submitRsvp = () => {
+    if (['yes-both-one', 'yes-plus-one'].includes(rsvp) && !guestName) {
+      setGuestError('Please enter the guest name');
+      return;
+    }
+    setGuestError('');
     submitRsvpSelection(rsvp, guestName);
   };
 
@@ -53,7 +59,13 @@ const Rsvp = props => {
           Let us know if you can make it &hellip;
         </FormLabel>
         <RadioGroup value={rsvp} aria-label="rsvp" name="rsvp" onChange={changeRsvp}>
-          <FormControlLabels disabled={!!user.rsvp} rsvp={rsvp} guestName={guestName} setGuestName={setGuestName} />
+          <FormControlLabels
+            disabled={!!user.rsvp}
+            rsvp={rsvp}
+            guestName={guestName}
+            setGuestName={setGuestName}
+            guestError={guestError}
+          />
         </RadioGroup>
       </FormControl>
       <Button variant="contained" color="secondary" onClick={submitRsvp} disabled={!!user.rsvp}>

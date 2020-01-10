@@ -11,7 +11,7 @@ const styles = theme => ({
 });
 
 const FormControlLabels = props => {
-  const { classes, rsvp, user, disabled, guestName, setGuestName } = props;
+  const { classes, rsvp, user, disabled, guestName, setGuestName, guestError } = props;
   // console.log(user);
   const { isCouple, hasPlusOne } = user;
 
@@ -38,6 +38,8 @@ const FormControlLabels = props => {
             <span style={{ alignSelf: 'center' }}>Only </span>
             <span style={{ marginLeft: 5, paddingBottom: 15 }}>
               <TextField
+                error={!!guestError}
+                helperText={guestError}
                 disabled={disabled || rsvp !== 'yes-both-one'}
                 label="Guest Full Name"
                 value={guestName}
@@ -82,6 +84,8 @@ const FormControlLabels = props => {
               <span style={{ alignSelf: 'center' }}>Yes, </span>
               <span style={{ marginLeft: 5, paddingBottom: 15 }}>
                 <TextField
+                  error={!!guestError}
+                  helperText={guestError}
                   disabled={disabled || rsvp !== 'yes-plus-one'}
                   label="Guest Full Name"
                   value={guestName}
