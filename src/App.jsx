@@ -31,7 +31,15 @@ const styles = theme => ({
     height: '100%',
   },
   tabsContainer: {
-    // padding: '0 40px',
+    display: 'flex',
+    flexDirection: 'column',
+    margin: 'auto',
+    alignItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+      display: 'block',
+      alignItems: 'start',
+    },
   },
 });
 
