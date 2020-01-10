@@ -20,6 +20,7 @@ import TabPanel from './components/TabPanel';
 import Registry from './components/Registry';
 import Rsvp from './components/Rsvp';
 import Faq from './components/Faq';
+import Travel from './components/Travel';
 
 const styles = theme => ({
   root: {
@@ -106,7 +107,7 @@ const App = props => {
             <Home />
           </TabPanel>
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            Hotels and flights
+            <Travel />
           </TabPanel>
           <TabPanel value={tabValue} index={2} dir={theme.direction}>
             <Registry />
