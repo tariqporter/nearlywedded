@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import { withStyles, Button } from '@material-ui/core';
 import { MapOutlined } from '@material-ui/icons';
 import Events from './Events';
+import { useHistory, useLocation } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -33,10 +34,21 @@ const styles = theme => ({
 });
 
 const Home = props => {
-  const { classes, daysUntilWedding = null } = props;
+  const { classes, user, daysUntilWedding = null } = props;
+  const history = useHistory();
+  const location = useLocation();
+
+  const browseToRsvp = () => {
+    history.push(`/rsvp${location.search}`);
+  };
 
   return (
     <div className={classes.root}>
+      {!user.rsvp && (
+        <Button variant="contained" color="secondary" onClick={browseToRsvp}>
+          Please take a moment RSVP
+        </Button>
+      )}
       <div className={classes.imgContainer}>
         <div alt="Holly Hedge" className={classes.img} />
         <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>
@@ -59,8 +71,9 @@ const Home = props => {
 };
 
 const mapStateToProps = state => {
-  const { daysUntilWedding } = state;
+  const { user, daysUntilWedding } = state;
   return {
+    user,
     daysUntilWedding,
   };
 };
