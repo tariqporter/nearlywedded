@@ -58,7 +58,9 @@ const App = props => {
   useEffect(() => {
     const tabIndex = tabs.indexOf(location.pathname);
     setTabValue(tabIndex === -1 ? 0 : tabIndex);
+  }, [location]);
 
+  useEffect(() => {
     const search = qs.parse(location.search);
     const userId = search.userid;
     if (userId) {
