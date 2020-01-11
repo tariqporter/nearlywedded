@@ -26,9 +26,7 @@ const Rsvp = props => {
   const [guestError, setGuestError] = useState('');
 
   useEffect(() => {
-    if (user.rsvp) {
-      setSnackOpen(true);
-    }
+    setSnackOpen(!!user.rsvp);
   }, [user.rsvp]);
 
   const changeRsvp = e => {

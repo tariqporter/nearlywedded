@@ -68,7 +68,7 @@ const App = props => {
       history.replace(`${location.pathname}?${newSearch}`);
     }
     getUser(userId);
-  }, [location]);
+  }, []);
 
   const tabChange = (e, value) => {
     setTabValue(value);
