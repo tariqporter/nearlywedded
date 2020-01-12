@@ -12,6 +12,7 @@ import {
   CardGiftcardOutlined,
   EventAvailableOutlined,
   LiveHelpOutlined,
+  FavoriteBorderOutlined,
 } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
@@ -44,7 +45,7 @@ const styles = theme => ({
   },
 });
 
-const tabs = ['/', '/travel', '/registry', '/rsvp', '/faq'];
+const tabs = ['/', '/about', '/travel', '/registry', '/rsvp', '/faq'];
 
 const App = props => {
   const { classes = '', getUser } = props;
@@ -87,6 +88,7 @@ const App = props => {
       <div className={classes.tabsContainer}>
         <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto">
           <Tab icon={<HomeOutlined />} label="Home" />
+          <Tab icon={<FavoriteBorderOutlined />} label="About Us" />
           <Tab
             icon={
               <span>
@@ -109,15 +111,18 @@ const App = props => {
             <Home />
           </TabPanel>
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            <Travel />
+            About Us
           </TabPanel>
           <TabPanel value={tabValue} index={2} dir={theme.direction}>
-            <Registry />
+            <Travel />
           </TabPanel>
           <TabPanel value={tabValue} index={3} dir={theme.direction}>
-            <Rsvp />
+            <Registry />
           </TabPanel>
           <TabPanel value={tabValue} index={4} dir={theme.direction}>
+            <Rsvp />
+          </TabPanel>
+          <TabPanel value={tabValue} index={5} dir={theme.direction}>
             <Faq />
           </TabPanel>
         </SwipeableViews>
