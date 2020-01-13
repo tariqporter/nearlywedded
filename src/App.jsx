@@ -30,7 +30,7 @@ const styles = theme => ({
     flexDirection: 'column',
     textAlign: 'center',
     alignItems: 'center',
-    height: '100%',
+    // height: '100%',
   },
   tabsContainer: {
     display: 'flex',
@@ -53,7 +53,6 @@ const App = props => {
   const theme = useTheme();
   const location = useLocation();
   const tabIndex = tabs.indexOf(location.pathname);
-  // console.log(tabIndex, location);
   const [tabValue, setTabValue] = useState(tabIndex === -1 ? 0 : tabIndex);
 
   useEffect(() => {
@@ -86,7 +85,7 @@ const App = props => {
     <div className={classes.root}>
       <Header />
       <div className={classes.tabsContainer}>
-        <Tabs value={tabValue} onChange={tabChange} variant="scrollable" scrollButtons="auto">
+        <Tabs value={tabValue} onChange={tabChange} textColor="secondary" variant="scrollable" scrollButtons="auto">
           <Tab icon={<HomeOutlined />} label="Home" />
           <Tab icon={<FavoriteBorderOutlined />} label="About Us" />
           <Tab
