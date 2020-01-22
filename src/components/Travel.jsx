@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles, Typography, Card, CardContent, CardActionArea, Grid } from '@material-ui/core';
+import { withStyles, Typography, Card, CardContent, CardActionArea, Grid, CircularProgress } from '@material-ui/core';
 import { AirplanemodeActiveOutlined, HotelOutlined } from '@material-ui/icons';
 import { getHotelsAction } from '../actions';
 // import clsx from 'clsx';
@@ -112,6 +112,11 @@ const Travel = props => {
         <HotelOutlined className={classes.headingIcon} /> Accommodation
       </Typography>
       <Grid container>
+        {!hotels.length && (
+          <Grid item xs={12}>
+            <CircularProgress color="secondary" />
+          </Grid>
+        )}
         {hotels.map((hotel, index) => (
           <Grid item xs={12} sm={6} key={hotel.id} className={index % 2 ? classes.hotel_right : classes.hotel_left}>
             <a style={{ textDecoration: 'none' }} href={hotel.link} target="_blank" rel="noopener noreferrer">
