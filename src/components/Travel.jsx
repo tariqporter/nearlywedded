@@ -111,6 +111,10 @@ const Travel = props => {
       <Typography variant="h5" className={classes.heading}>
         <HotelOutlined className={classes.headingIcon} /> Accommodation
       </Typography>
+      <Typography variant="body1" color="textSecondary" gutterBottom>
+        Here are a few picks of hotels. This is not a complete list, and we encourage you to look into AirBnb if staying
+        for multiple nights.
+      </Typography>
       <Grid container>
         {!hotels.length && (
           <Grid item xs={12}>
