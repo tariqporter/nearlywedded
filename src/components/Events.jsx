@@ -39,7 +39,7 @@ const styles = {
 };
 
 const Events = props => {
-  const { classes, events, getEvents = () => {} } = props;
+  const { classes, events, getEvents } = props;
 
   useEffect(() => {
     // don't get events if we already have them

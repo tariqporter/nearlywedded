@@ -12,7 +12,7 @@ import {
   CardGiftcardOutlined,
   EventAvailableOutlined,
   LiveHelpOutlined,
-  FavoriteBorderOutlined,
+  PhotoOutlined,
 } from '@material-ui/icons';
 import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
@@ -87,7 +87,7 @@ const App = props => {
       <div className={classes.tabsContainer}>
         <Tabs value={tabValue} onChange={tabChange} textColor="secondary" variant="scrollable" scrollButtons="auto">
           <Tab icon={<HomeOutlined />} label="Home" />
-          <Tab icon={<FavoriteBorderOutlined />} label="About Us" />
+          <Tab icon={<PhotoOutlined />} label="Photos" />
           <Tab
             icon={
               <span>
@@ -110,7 +110,7 @@ const App = props => {
             <Home />
           </TabPanel>
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            About Us
+            Photos
           </TabPanel>
           <TabPanel value={tabValue} index={2} dir={theme.direction}>
             <Travel />

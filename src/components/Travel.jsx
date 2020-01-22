@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles, Typography, Card, CardContent, CardMedia, CardActionArea } from '@material-ui/core';
-import { AirplanemodeActiveOutlined } from '@material-ui/icons';
+import { withStyles, Typography, Card, CardContent, CardActionArea, Grid } from '@material-ui/core';
+import { AirplanemodeActiveOutlined, HotelOutlined } from '@material-ui/icons';
+import { getHotelsAction } from '../actions';
+// import clsx from 'clsx';
 
 const styles = theme => ({
   root: {
@@ -19,16 +21,36 @@ const styles = theme => ({
   card: {
     marginBottom: 10,
   },
+  hotel_left: {
+    [theme.breakpoints.up('sm')]: {
+      paddingRight: 10,
+    },
+  },
+  hotel_right: {
+    [theme.breakpoints.up('sm')]: {
+      paddingLeft: 10,
+    },
+  },
   media: {
     height: 150,
   },
   headingIcon: {
     width: 40,
     height: 40,
+    marginRight: 10,
   },
 });
 
 const Travel = props => {
+  const { hotels, getHotels } = props;
+
+  useEffect(() => {
+    // don't get hotels if we already have them
+    if (!hotels.length) {
+      getHotels();
+    }
+  }, []);
+
   const { classes } = props;
   return (
     <div className={classes.root}>
@@ -44,18 +66,11 @@ const Travel = props => {
         <Card variant="outlined" className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
                 John F. Kennedy International Airport (JFK)
               </Typography>
-              <Typography variant="body2" component="p">
-                ~1h 45m drive
-              </Typography>
+              <Typography variant="body2">~1h 45m drive</Typography>
             </CardContent>
-            <CardMedia
-              className={classes.media}
-              image="/img/jfk.jpg"
-              title="John F. Kennedy International Airport (JFK)"
-            />
           </CardActionArea>
         </Card>
       </a>
@@ -68,18 +83,11 @@ const Travel = props => {
         <Card variant="outlined" className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
                 Newark Liberty International Airport (EWR)
               </Typography>
-              <Typography variant="body2" component="p">
-                ~1h 10m drive
-              </Typography>
+              <Typography variant="body2">~1h 10m drive</Typography>
             </CardContent>
-            <CardMedia
-              className={classes.media}
-              image="/img/ewr.jpg"
-              title="Newark Liberty International Airport (EWR)"
-            />
           </CardActionArea>
         </Card>
       </a>
@@ -92,29 +100,57 @@ const Travel = props => {
         <Card variant="outlined" className={classes.card}>
           <CardActionArea>
             <CardContent>
-              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTrasnform: 'uppercase' }}>
+              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
                 Philadelphia International Airport (PHL)
               </Typography>
-              <Typography variant="body2" component="p">
-                ~1h drive
-              </Typography>
+              <Typography variant="body2">~1h drive</Typography>
             </CardContent>
-            <CardMedia
-              className={classes.media}
-              image="/img/phl.jpg"
-              title="Philadelphia International Airport (PHL)"
-            />
           </CardActionArea>
         </Card>
       </a>
+      <Typography variant="h5" className={classes.heading}>
+        <HotelOutlined className={classes.headingIcon} /> Accommodation
+      </Typography>
+      <Grid container>
+        {hotels.map((hotel, index) => (
+          <Grid item xs={12} sm={6} key={hotel.id} className={index % 2 ? classes.hotel_right : classes.hotel_left}>
+            <a style={{ textDecoration: 'none' }} href={hotel.link} target="_blank" rel="noopener noreferrer">
+              <Card variant="outlined" className={classes.card}>
+                <CardActionArea>
+                  <CardContent>
+                    <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
+                      {hotel.name}
+                    </Typography>
+                    <Typography variant="body2" color="secondary">
+                      {hotel.price}
+                    </Typography>
+                    <Typography variant="body2" color="textSecondary">
+                      {hotel.info}
+                    </Typography>
+                    <Typography variant="body2">{hotel.address}</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </a>
+          </Grid>
+        ))}
+      </Grid>
     </div>
   );
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    hotels: state.hotels,
+  };
 };
 
-const mapDispatchToProps = (dispatch, ownProps) => bindActionCreators({}, dispatch);
+const mapDispatchToProps = (dispatch, ownProps) =>
+  bindActionCreators(
+    {
+      getHotels: getHotelsAction,
+    },
+    dispatch
+  );
 
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Travel));

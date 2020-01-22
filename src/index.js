@@ -5,10 +5,8 @@ import App from './App';
 import SaveTheDate from './components/SaveTheDate';
 import Admin from './components/Admin';
 import { Provider } from 'react-redux';
+import { store } from './reducers/store';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunk from 'redux-thunk';
-import rootReducer from './reducers';
 import * as serviceWorker from './serviceWorker';
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
@@ -31,9 +29,7 @@ if (process.env.NODE_ENV === 'development') {
   app.functions().useFunctionsEmulator('http://localhost:5001');
 }
 
-export const store = createStore(rootReducer, compose(applyMiddleware(thunk)));
-
-const Index = () => {
+export const Index = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>

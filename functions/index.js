@@ -71,6 +71,19 @@ module.exports.getEvents = functions.https.onRequest((req, res) => {
   });
 });
 
+module.exports.getHotels = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const data = { data: { hotels: [] } };
+    try {
+      const data1 = await db.collection('hotels').get();
+      data.data.hotels = data1.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+    } catch (err) {
+      console.log('getHotels', err);
+    }
+    return res.json(data);
+  });
+});
+
 module.exports.getFaqs = functions.https.onRequest((req, res) => {
   cors(req, res, async () => {
     const data = { data: { faqs: [] } };

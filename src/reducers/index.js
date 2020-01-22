@@ -13,6 +13,7 @@ const initialState = {
     rsvp: null,
   },
   events: [],
+  hotels: [],
   faqs: [],
   daysUntilWedding,
   signedIn: true,
@@ -39,6 +40,10 @@ export default (state = initialState, action) => {
     case ACTION.SET_EVENTS: {
       const { events } = action;
       return { ...state, events };
+    }
+    case ACTION.SET_HOTELS: {
+      const { hotels } = action;
+      return { ...state, hotels };
     }
     case ACTION.SET_FAQS: {
       const { faqs } = action;

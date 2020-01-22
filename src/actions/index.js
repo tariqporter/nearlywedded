@@ -10,6 +10,7 @@ export const ACTION = {
   SENDING_EMAIL: 'SENDING_EMAIL',
   SENT_EMAIL: 'SENT_EMAIL',
   SUBMIT_RSVP_SELECTION: 'SUBMIT_RSVP_SELECTION',
+  SET_HOTELS: 'SET_HOTELS',
 };
 
 export const getEventsAction = () => async dispatch => {
@@ -22,6 +23,21 @@ export const getEventsAction = () => async dispatch => {
     dispatch({
       type: ACTION.SET_EVENTS,
       events,
+    });
+  }
+  return result;
+};
+
+export const getHotelsAction = () => async dispatch => {
+  const getHotels = firebase.functions().httpsCallable('getHotels');
+
+  const result = await getHotels().catch(err => console.log(err));
+  console.log('getHotels', result);
+  if (result) {
+    const { hotels } = result.data;
+    dispatch({
+      type: ACTION.SET_HOTELS,
+      hotels,
     });
   }
   return result;

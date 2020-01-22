@@ -15,32 +15,3 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
-
-.marker {
-  width: 20px;
-  height: 20px;
-  background-color: #1565c0;
-  border: 1.5px solid #2196f3;
-  border-radius: 50%;
-  opacity: 0.85;
-  text-align: center;
-  position: relative;
-  cursor: pointer;
-  transition: 0.3s;
-  transition-property: box-shadow, opacity;
-
-  &:hover {
-    opacity: 0.95;
-    box-shadow: 0 0 0 4px rgba(144, 202, 249, 0.5);
-  }
-
-  &-content {
-    color: #fff;
-    font-size: 12px;
-    font-weight: 800;
-    top: 50%;
-    position: absolute;
-    transform: translateY(-50%);
-    width: 100%;
-  }
-}

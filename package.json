@@ -37,10 +37,6 @@
     "redux-thunk": "^2.3.0",
     "svg-inline-react": "^3.2.0"
   },
-  "engines": {
-    "node": "10.x"
-  },
-  "proxy": "http://localhost:5001",
   "scripts": {
     "start": "firebase emulators:start --only functions",
     "dev": "env-cmd -f .env.dev react-scripts start",
