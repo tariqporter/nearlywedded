@@ -107,7 +107,22 @@ module.exports.getUser = functions.https.onRequest((req, res) => {
       if (!doc.exists) {
         return res.json(data);
       }
-      const { saveDateViewDates, ...data1 } = doc.data();
+
+      const ipInfo = getLocationInfo(req);
+      const { saveDateViewDates, viewDates, ...data1 } = doc.data();
+      const newViewDate = {
+        date: new Date(),
+        map:
+          ipInfo && ipInfo.ll && ipInfo.ll.length >= 2
+            ? `http://www.google.com/maps/place/${ipInfo.ll[0]},${ipInfo.ll[1]}`
+            : '',
+        info: ipInfo || null,
+      };
+
+      ref.update({
+        viewDates: viewDates ? admin.firestore.FieldValue.arrayUnion(newViewDate) : [newViewDate],
+      });
+
       data.data.user = { id: doc.id, ...data1 };
     } catch (err) {
       console.log('getUser', err);
