@@ -22,6 +22,7 @@ import Registry from './components/Registry';
 import Rsvp from './components/Rsvp';
 import Faq from './components/Faq';
 import Travel from './components/Travel';
+import Photos from './components/Photos';
 
 const styles = theme => ({
   root: {
@@ -45,7 +46,7 @@ const styles = theme => ({
   },
 });
 
-const tabs = ['/', '/about', '/travel', '/registry', '/rsvp', '/faq'];
+const tabs = ['/', '/photos', '/travel', '/registry', '/rsvp', '/faq'];
 
 const App = props => {
   const { classes = '', getUser } = props;
@@ -110,7 +111,7 @@ const App = props => {
             <Home />
           </TabPanel>
           <TabPanel value={tabValue} index={1} dir={theme.direction}>
-            Photos
+            <Photos />
           </TabPanel>
           <TabPanel value={tabValue} index={2} dir={theme.direction}>
             <Travel />

@@ -72,7 +72,7 @@ const Rsvp = props => {
       {ReactDOM.createPortal(
         <Snackbar open={snackOpen} autoHideDuration={6000} onClose={handleSnackClose}>
           <Alert onClose={handleSnackClose} severity="success">
-            Thank you for submitting your RSVP. We look forward to seeing you!
+            Thank you for submitting your RSVP.
           </Alert>
         </Snackbar>,
         document.body

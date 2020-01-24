@@ -1,6 +1,7 @@
 import { ACTION } from '../actions';
 import { cloneDeep } from 'lodash';
 import ls from 'local-storage';
+import photos from './photos';
 
 const diffTime = new Date(2020, 8, 4).getTime() - new Date().getTime();
 const daysUntilWedding = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
@@ -22,6 +23,7 @@ const initialState = {
   sendingEmailUserIds: [],
   filterUsers: [],
   saveDateSearch: '',
+  photos,
 };
 
 export default (state = initialState, action) => {
