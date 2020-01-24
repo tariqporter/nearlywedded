@@ -61,6 +61,7 @@ const Home = props => {
         component="a"
         href="https://goo.gl/maps/sTQF2Efp7T9qFUKH9"
         target="_blank"
+        rel="noopener noreferrer"
       >
         <MapOutlined style={{ marginRight: 5 }} /> Map to HollyHedge Estate
       </Button>
