@@ -1,7 +1,7 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { withStyles, Slide, Dialog, Card, CardMedia, Fab } from '@material-ui/core';
+import { withStyles } from '@material-ui/core';
 import Gallery from 'react-photo-gallery';
 // import { ChevronLeft, ChevronRight } from '@material-ui/icons';
 import { Modal, ModalGateway } from 'react-images';

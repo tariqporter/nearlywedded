@@ -1,5 +1,6 @@
 // @flow
 /* @jsx glam */
+// eslint-disable-next-line no-unused-vars
 import glam from 'glam';
 import React from 'react';
 

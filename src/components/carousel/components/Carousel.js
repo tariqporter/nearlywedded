@@ -1,5 +1,5 @@
 // @flow
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 // import { findDOMNode } from 'react-dom';
 // import glam from 'glam';
 // import rafScheduler from 'raf-schd';
@@ -22,7 +22,7 @@ const Carousel = props => {
   const {
     currentIndex: startIndex = 0,
     formatters = defaultFormatters,
-    hideControlsWhenIdle = 3000,
+    // hideControlsWhenIdle = 3000,
     showNavigationOnTouchDevice = false,
     styles = {},
     trackProps = {

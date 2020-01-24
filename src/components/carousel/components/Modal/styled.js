@@ -1,6 +1,7 @@
 // @flow
 /* @jsx glam */
 import React from 'react';
+// eslint-disable-next-line no-unused-vars
 import glam from 'glam';
 import { Div } from '../../primitives';
 // import { type PropsWithStyles } from '../../types';
