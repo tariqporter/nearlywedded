@@ -7,6 +7,7 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import qs from 'query-string';
 import MrAndMrs1 from '../icons/MrAndMrs3';
 import clsx from 'clsx';
+import { useLocation } from 'react-router-dom';
 
 const theme = createMuiTheme({
   typography: {
@@ -65,12 +66,8 @@ const styles = theme => ({
 });
 
 const SaveTheDate = props => {
-  const {
-    classes = '',
-    location = {},
-    getUser,
-    updateSaveTheDateViews,
-  } = props;
+  const { classes = '', getUser, updateSaveTheDateViews } = props;
+  const location = useLocation();
 
   useEffect(() => {
     const userId = qs.parse(location.search).userid;
@@ -83,11 +80,7 @@ const SaveTheDate = props => {
   return (
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
-        <Paper
-          className={clsx(classes.body, classes.img)}
-          square={true}
-          classes={{ elevation1: classes.elevation1 }}
-        >
+        <Paper className={clsx(classes.body, classes.img)} square={true} classes={{ elevation1: classes.elevation1 }}>
           <div className={classes.paperContent}>
             <h1 className={classes.title}>
               Tariq <span className={classes.cursive}>&amp;</span> Irina
@@ -97,21 +90,12 @@ const SaveTheDate = props => {
               Friday, September 4, 2020
             </Typography>
             <Typography variant="h5">
-              <a
-                href="https://www.hollyhedge.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={classes.link}
-              >
-                Holly Hedge Estate <span className={classes.divider}>—</span>{' '}
-                New Hope, PA
+              <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>
+                Holly Hedge Estate <span className={classes.divider}>—</span> New Hope, PA
               </a>
             </Typography>
           </div>
-          <MrAndMrs1
-            size={120}
-            style={{ position: 'absolute', right: 0, bottom: 0 }}
-          />
+          <MrAndMrs1 size={120} style={{ position: 'absolute', right: 0, bottom: 0 }} />
         </Paper>
       </MuiThemeProvider>
     </div>
@@ -131,7 +115,4 @@ const mapDispatchToProps = (dispatch, ownProps) =>
     dispatch
   );
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withStyles(styles)(SaveTheDate));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(SaveTheDate));
