@@ -13,6 +13,8 @@ import defaultFormatters from '../formatters';
 // import { type ViewsType } from '../types';
 import Container from './Container';
 import View from './View';
+import Header, { HeaderClose, HeaderFullscreen } from './Header';
+// import Footer, { FooterCaption, FooterCount } from './Footer';
 import { Navigation, NavigationPrev, NavigationNext } from './Navigation';
 
 const viewPagerStyles = { flex: '1 1 auto', position: 'relative' };
@@ -35,6 +37,8 @@ const Carousel = props => {
     beforeTrack = () => {},
   } = props;
 
+  const header = useRef(null);
+  // const footer = useRef(null);
   const container = useRef(null);
   const frame = useRef(null);
   const track = useRef(null);
@@ -114,7 +118,17 @@ const Carousel = props => {
 
   return (
     <Container {...commonProps} innerProps={{ innerRef: ref => (container.current = ref) }}>
-      {/* {this.renderHeader()} */}
+      <Header
+        {...commonProps}
+        getCloseLabel={formatters.getCloseLabel}
+        getFullscreenLabel={formatters.getFullscreenLabel}
+        components={{
+          CloseButton: HeaderClose,
+          FullscreenButton: HeaderFullscreen,
+        }}
+        data={views[currentIndex]}
+        innerProps={{ innerRef: ref => (header.current = ref) }}
+      />
       <ViewPager tag="main" style={viewPagerStyles} className={className('pager')}>
         <Frame {...frameProps} ref={ref => (frame.current = ref)} className={className('frame')} style={frameStyles}>
           <Track
@@ -160,7 +174,14 @@ const Carousel = props => {
           )}
         </Navigation>
       </ViewPager>
-      {/* {this.renderFooter()} */}
+      {/* <Footer
+        {...commonProps}
+        components={{
+          Caption: FooterCaption,
+          Count: FooterCount,
+        }}
+        innerProps={{ innerRef: ref => (footer.current = ref) }}
+      /> */}
     </Container>
   );
 };
