@@ -49,7 +49,10 @@ const Carousel = props => {
   //   }
   // }, [views]);
 
-  const handleViewChange = indices => {};
+  const handleViewChange = indices => {
+    // console.log(indices);
+    beforeTrack(indices[0]);
+  };
 
   const getStyles = (key, props) => {
     const base = defaultCarouselStyles[key](props);
@@ -59,7 +62,7 @@ const Carousel = props => {
   };
 
   const prev = event => {
-    event.stopPropagation();
+    // event.stopPropagation();
     setTimeout(() => {
       setCurrentIndex(p => --p);
     }, 200);
@@ -70,7 +73,8 @@ const Carousel = props => {
   };
 
   const next = event => {
-    event.stopPropagation();
+    // console.log(event);
+    // event.stopPropagation();
     setTimeout(() => {
       setCurrentIndex(p => ++p);
     }, 200);
@@ -106,7 +110,7 @@ const Carousel = props => {
 
   const commonProps = getCommonProps();
 
-  console.log(currentIndex);
+  // console.log(currentIndex);
 
   return (
     <Container {...commonProps} innerProps={{ innerRef: ref => (container.current = ref) }}>

@@ -64,52 +64,19 @@ const Photos = props => {
         {viewerIsOpen && (
           <Modal onClose={closeLightbox}>
             <Carousel
-              beforeTrack={e => setViewedImage(p => ({ ...p, [e]: true, [e - 1]: true, [e + 1]: true }))}
-              // components={{ FooterCaption }}
+              beforeTrack={e => {
+                setViewedImage(p => {
+                  const t = { ...p, [e]: true, [e - 1]: true, [e + 1]: true };
+                  // console.log(t);
+                  return t;
+                });
+              }}
               currentIndex={currentImage}
-              // formatters={{ getAltText }}
-              // frameProps={{ autoSize: 'height' }}
-              // trackProps={{
-              //   onViewChange: e => {
-              //     timeout.current = setTimeout(
-              //       () => setViewedImage(p => ({ ...p, [e]: true, [e - 1]: true, [e + 1]: true })),
-              //       1000
-              //     );
-              //   },
-              // }}
               views={photos.map((x, i) => ({ ...x, src: viewedImages[i] ? x.src(3) : '#' }))}
             />
           </Modal>
         )}
       </ModalGateway>
-      {/* <Dialog
-        open={viewerIsOpen}
-        TransitionComponent={Transition}
-        keepMounted
-        onClose={closeLightbox}
-        // aria-labelledby="alert-dialog-slide-title"
-        // aria-describedby="alert-dialog-slide-description"
-      >
-        {currentImage > 0 && (
-          <Fab className={classes.navigate} style={{ left: 20 }} onClick={() => setCurrentImage(p => --p)}>
-            <ChevronLeft />
-          </Fab>
-        )}
-
-        <Card className={classes.card}>
-          <CardMedia
-            className={classes.image}
-            component="img"
-            image={photos[currentImage].src(3)}
-            title="Fullscreen engagement"
-          />
-        </Card>
-        {currentImage < photos.length - 1 && (
-          <Fab className={classes.navigate} style={{ right: 20 }} onClick={() => setCurrentImage(p => ++p)}>
-            <ChevronRight />
-          </Fab>
-        )}
-      </Dialog> */}
     </div>
   );
 };
