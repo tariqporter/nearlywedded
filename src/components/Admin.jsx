@@ -159,7 +159,7 @@ const Admin = props => {
                           ).toLocaleDateString()
                         : '—'}
                     </TableCell>
-                    <TableCell align="left">
+                    <TableCell align="center">
                       {sendingEmailUserIds.includes(user.id) ? (
                         <CircularProgress />
                       ) : (
