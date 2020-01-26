@@ -20,5 +20,6 @@ const getIpInfo = ip => {
 module.exports.getLocationInfo = req => {
   const xForwardedFor = (req.headers['x-forwarded-for'] || '').replace(/:\d+$/, '');
   const ip = xForwardedFor || req.connection.remoteAddress || '';
+  console.log('ip', ip);
   return getIpInfo(ip);
 };
