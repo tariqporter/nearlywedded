@@ -49,7 +49,7 @@ const styles = theme => ({
 const tabs = ['/', '/photos', '/travel', '/registry', '/rsvp', '/faq'];
 
 const App = props => {
-  const { classes = '', getUser } = props;
+  const { classes = '', getUser, user } = props;
   const history = useHistory();
   const theme = useTheme();
   const location = useLocation();
@@ -99,7 +99,7 @@ const App = props => {
             label="Travel & Accommodation"
           />
           <Tab icon={<CardGiftcardOutlined />} label="Registry" />
-          <Tab icon={<EventAvailableOutlined />} label="RSVP" />
+          <Tab icon={<EventAvailableOutlined />} label="RSVP" disabled={!user.id} />
           <Tab icon={<LiveHelpOutlined />} label="FAQ" />
         </Tabs>
         <SwipeableViews
@@ -120,7 +120,7 @@ const App = props => {
             <Registry />
           </TabPanel>
           <TabPanel value={tabValue} index={4} dir={theme.direction}>
-            <Rsvp />
+            {user.id && <Rsvp />}
           </TabPanel>
           <TabPanel value={tabValue} index={5} dir={theme.direction}>
             <Faq />
@@ -132,7 +132,9 @@ const App = props => {
 };
 
 const mapStateToProps = state => {
-  return {};
+  return {
+    user: state.user,
+  };
 };
 
 const mapDispatchToProps = (dispatch, ownProps) =>
