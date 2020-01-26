@@ -154,7 +154,9 @@ const Admin = props => {
                     <TableCell align="left">{user.saveDateViewDates.length}</TableCell>
                     <TableCell align="left">
                       {user.saveDateViewDates.length
-                        ? new Date(user.saveDateViewDates.pop().date.seconds * 1000).toLocaleDateString()
+                        ? new Date(
+                            user.saveDateViewDates[user.saveDateViewDates.length - 1].date.seconds * 1000
+                          ).toLocaleDateString()
                         : '—'}
                     </TableCell>
                     <TableCell align="left">
