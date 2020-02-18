@@ -35,20 +35,20 @@ const styles = theme => ({
 
 const Home = props => {
   const { classes, user, daysUntilWedding = null } = props;
-  const history = useHistory();
-  const location = useLocation();
+  // const history = useHistory();
+  // const location = useLocation();
 
-  const browseToRsvp = () => {
-    history.push(`/rsvp${location.search}`);
-  };
+  // const browseToRsvp = () => {
+  //   history.push(`/rsvp${location.search}`);
+  // };
 
   return (
     <div className={classes.root}>
-      {!user.rsvp && (
+      {/* {!user.rsvp && (
         <Button variant="contained" color="secondary" onClick={browseToRsvp}>
           Please take a moment to RSVP
         </Button>
-      )}
+      )} */}
       <div className={classes.imgContainer}>
         <div alt="Holly Hedge" className={classes.img} />
         <a href="https://www.hollyhedge.com/" target="_blank" rel="noopener noreferrer" className={classes.link}>
