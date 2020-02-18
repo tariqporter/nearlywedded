@@ -117,13 +117,13 @@ const App = props => {
           <TabPanel value={tabValue} index={2} dir={theme.direction}>
             <Travel />
           </TabPanel>
-          <TabPanel value={tabValue} index={3} dir={theme.direction}>
+          {/* <TabPanel value={tabValue} index={3} dir={theme.direction}>
             <Registry />
           </TabPanel>
           <TabPanel value={tabValue} index={4} dir={theme.direction}>
             {user.id && <Rsvp />}
-          </TabPanel>
-          <TabPanel value={tabValue} index={5} dir={theme.direction}>
+          </TabPanel> */}
+          <TabPanel value={tabValue} index={3} dir={theme.direction}>
             <Faq />
           </TabPanel>
         </SwipeableViews>
