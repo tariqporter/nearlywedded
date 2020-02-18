@@ -46,7 +46,8 @@ const styles = theme => ({
   },
 });
 
-const tabs = ['/', '/photos', '/travel', '/registry', '/rsvp', '/faq'];
+// const tabs = ['/', '/photos', '/travel', '/registry', '/rsvp', '/faq'];
+const tabs = ['/', '/photos', '/travel', '/faq'];
 
 const App = props => {
   const { classes = '', getUser, user } = props;
@@ -98,8 +99,8 @@ const App = props => {
             }
             label="Travel & Accommodation"
           />
-          <Tab icon={<CardGiftcardOutlined />} label="Registry" />
-          <Tab icon={<EventAvailableOutlined />} label="RSVP" disabled={!user.id} />
+          {/* <Tab icon={<CardGiftcardOutlined />} label="Registry" /> */}
+          {/* <Tab icon={<EventAvailableOutlined />} label="RSVP" disabled={!user.id} /> */}
           <Tab icon={<LiveHelpOutlined />} label="FAQ" />
         </Tabs>
         <SwipeableViews
