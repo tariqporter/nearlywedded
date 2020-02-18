@@ -6,7 +6,6 @@ branches:
 before_install:
   - chmod +x ./build-env.sh
   - ./build-env.sh
-  - SET CI=false
   - yarn
   - yarn build
 deploy:
