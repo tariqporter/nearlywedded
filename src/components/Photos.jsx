@@ -42,7 +42,6 @@ const Photos = props => {
   const [currentImage, setCurrentImage] = useState(0);
   const [viewerIsOpen, setViewerIsOpen] = useState(false);
   const [viewedImages, setViewedImage] = useState({});
-  // const timeout = useRef(null);
 
   const openLightbox = useCallback((event, { photo, index }) => {
     setViewedImage(p => {
@@ -67,7 +66,6 @@ const Photos = props => {
               beforeTrack={e => {
                 setViewedImage(p => {
                   const t = { ...p, [e]: true, [e - 1]: true, [e + 1]: true };
-                  // console.log(t);
                   return t;
                 });
               }}
