@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { withStyles, Typography, Card, CardContent, CardActionArea, Grid, CircularProgress } from '@material-ui/core';
@@ -16,7 +16,7 @@ const styles = theme => ({
   heading: {
     display: 'inline-flex',
     alignItems: 'center',
-    marginBottom: 10,
+    margin: '10px 0',
   },
   card: {
     marginBottom: 10,
@@ -39,10 +39,41 @@ const styles = theme => ({
     height: 40,
     marginRight: 10,
   },
+  airport: {
+    padding: '0 10px',
+    [theme.breakpoints.up('sm')]: {
+      '&:first-child': {
+        paddingLeft: 0,
+      },
+      '&:last-child': {
+        paddingRight: 0,
+      },
+    },
+  },
 });
 
 const Travel = props => {
   const { hotels, getHotels } = props;
+  const [airports] = useState([
+    {
+      id: 0,
+      link: 'https://goo.gl/maps/GMVi1Sxan2UuD15R7',
+      name: 'John F. Kennedy International Airport (JFK)',
+      time: '~1h 45m drive',
+    },
+    {
+      id: 1,
+      link: 'https://goo.gl/maps/gsMQ9SpQMujMhxoy9',
+      name: 'Newark Liberty International Airport (EWR)',
+      time: '~1h 10m drive',
+    },
+    {
+      id: 2,
+      link: 'https://goo.gl/maps/tdGe8qgiT7QD4rnBA',
+      name: 'Philadelphia International Airport (PHL)',
+      time: '~1h drive',
+    },
+  ]);
 
   useEffect(() => {
     // don't get hotels if we already have them
@@ -57,57 +88,24 @@ const Travel = props => {
       <Typography variant="h5" className={classes.heading}>
         <AirplanemodeActiveOutlined className={classes.headingIcon} /> Airports
       </Typography>
-      <a
-        style={{ textDecoration: 'none' }}
-        href="https://goo.gl/maps/GMVi1Sxan2UuD15R7"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Card variant="outlined" className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
-                John F. Kennedy International Airport (JFK)
-              </Typography>
-              <Typography variant="body2">~1h 45m drive</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </a>
-      <a
-        style={{ textDecoration: 'none' }}
-        href="https://goo.gl/maps/gsMQ9SpQMujMhxoy9"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Card variant="outlined" className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
-                Newark Liberty International Airport (EWR)
-              </Typography>
-              <Typography variant="body2">~1h 10m drive</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </a>
-      <a
-        style={{ textDecoration: 'none' }}
-        href="https://goo.gl/maps/tdGe8qgiT7QD4rnBA"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        <Card variant="outlined" className={classes.card}>
-          <CardActionArea>
-            <CardContent>
-              <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
-                Philadelphia International Airport (PHL)
-              </Typography>
-              <Typography variant="body2">~1h drive</Typography>
-            </CardContent>
-          </CardActionArea>
-        </Card>
-      </a>
+      <Grid container>
+        {airports.map(airport => (
+          <Grid key={airport.id} item xs={12} sm={4} className={classes.airport}>
+            <a style={{ textDecoration: 'none' }} href={airport.link} target="_blank" rel="noopener noreferrer">
+              <Card variant="outlined" className={classes.card}>
+                <CardActionArea>
+                  <CardContent>
+                    <Typography variant="h6" color="textSecondary" gutterBottom style={{}}>
+                      {airport.name}
+                    </Typography>
+                    <Typography variant="body2">{airport.name}</Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </a>
+          </Grid>
+        ))}
+      </Grid>
       <Typography variant="h5" className={classes.heading}>
         <HotelOutlined className={classes.headingIcon} /> Accommodation
       </Typography>
