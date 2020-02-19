@@ -147,7 +147,7 @@ const Admin = props => {
               <TableBody>
                 {filterUsers.map(user => (
                   <TableRow key={user.id}>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" title={user.id}>
                       {user.name}
                     </TableCell>
                     <TableCell align="left">{user.email}</TableCell>
