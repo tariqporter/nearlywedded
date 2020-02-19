@@ -95,7 +95,7 @@ const Travel = props => {
               <Card variant="outlined" className={classes.card}>
                 <CardActionArea>
                   <CardContent>
-                    <Typography variant="h6" color="textSecondary" gutterBottom style={{}}>
+                    <Typography variant="h6" color="textSecondary" gutterBottom>
                       {airport.name}
                     </Typography>
                     <Typography variant="body2">{airport.name}</Typography>
@@ -125,7 +125,7 @@ const Travel = props => {
               <Card variant="outlined" className={classes.card}>
                 <CardActionArea>
                   <CardContent>
-                    <Typography variant="h6" color="textSecondary" gutterBottom style={{ textTransform: 'uppercase' }}>
+                    <Typography variant="h6" color="textSecondary" gutterBottom>
                       {hotel.name}
                     </Typography>
                     <Typography variant="body2" color="secondary">
