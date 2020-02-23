@@ -40,8 +40,8 @@ const Events = props => {
     <div className={classes.root}>
       {!events.length && <CircularProgress color="secondary" />}
       {events.map(event => (
-        <Card variant="outlined" className={classes.card}>
-          <Grid container key={event.id} className={classes.event}>
+        <Card key={event.id} variant="outlined" className={classes.card}>
+          <Grid container className={classes.event}>
             <Grid item xs={12} md={6} className={classes.eventLeft1}>
               <div>{event.time}</div>
               <div>{event.location}</div>
