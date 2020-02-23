@@ -9,8 +9,8 @@ import {
   HomeOutlined,
   HotelOutlined,
   AirplanemodeActiveOutlined,
-  CardGiftcardOutlined,
-  EventAvailableOutlined,
+  // CardGiftcardOutlined,
+  // EventAvailableOutlined,
   LiveHelpOutlined,
   PhotoOutlined,
 } from '@material-ui/icons';
@@ -18,8 +18,8 @@ import { useHistory, useLocation } from 'react-router-dom';
 import qs from 'query-string';
 import Home from './components/Home';
 import TabPanel from './components/TabPanel';
-import Registry from './components/Registry';
-import Rsvp from './components/Rsvp';
+// import Registry from './components/Registry';
+// import Rsvp from './components/Rsvp';
 import Faq from './components/Faq';
 import Travel from './components/Travel';
 import Photos from './components/Photos';
@@ -92,7 +92,7 @@ const App = props => {
           <Tab icon={<PhotoOutlined />} label="Photos" />
           <Tab
             icon={
-              <span>
+              <span style={{ height: 24 }}>
                 <HotelOutlined />
                 <AirplanemodeActiveOutlined />
               </span>
