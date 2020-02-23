@@ -20,6 +20,7 @@ const styles = theme => ({
   },
   card: {
     marginBottom: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.35)',
   },
   hotel_left: {
     [theme.breakpoints.up('sm')]: {
