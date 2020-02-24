@@ -102,11 +102,10 @@ module.exports.getUser = functions.https.onRequest((req, res) => {
     const { userId } = req.body.data;
     const data = { data: { user: { id: null } } };
     try {
+      if (!userId) res.json(data);
       const ref = db.collection('users').doc(userId);
       const doc = await ref.get();
-      if (!doc.exists) {
-        return res.json(data);
-      }
+      if (!doc.exists) return res.json(data);
 
       const ipInfo = getLocationInfo(req);
       const { saveDateViewDates, viewDates, ...data1 } = doc.data();
