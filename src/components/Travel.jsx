@@ -124,8 +124,8 @@ const Travel = props => {
           <Grid item xs={12} sm={6} key={hotel.id} className={index % 2 ? classes.hotel_right : classes.hotel_left}>
             <a style={{ textDecoration: 'none' }} href={hotel.link} target="_blank" rel="noopener noreferrer">
               <Card variant="outlined" className={classes.card}>
-                <CardActionArea style={{ minHeight: 185 }}>
-                  <CardContent>
+                <CardActionArea style={{ height: 185 }}>
+                  <CardContent style={{ height: '100%' }}>
                     <Typography variant="h6" color="textSecondary" gutterBottom>
                       {hotel.name}
                     </Typography>
