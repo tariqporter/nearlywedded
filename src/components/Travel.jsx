@@ -16,7 +16,7 @@ const styles = theme => ({
   heading: {
     display: 'inline-flex',
     alignItems: 'center',
-    margin: '10px 0',
+    margin: '20px 0',
   },
   card: {
     marginBottom: 10,
