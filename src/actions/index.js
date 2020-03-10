@@ -126,15 +126,32 @@ export const setSaveDateSearchAction = saveDateSearch => {
   };
 };
 
-export const sendSaveDateEmailAction = userId => async dispatch => {
-  const sendEmail = firebase.functions().httpsCallable('sendEmail');
+// export const sendSaveDateEmailAction = userId => async dispatch => {
+//   const sendEmail = firebase.functions().httpsCallable('sendEmail');
+//   dispatch({
+//     type: ACTION.SENDING_EMAIL,
+//     userId,
+//   });
+
+//   const result = await sendEmail({ userId }).catch(err => console.log(err));
+//   console.log('sendEmail', result);
+
+//   dispatch({
+//     type: ACTION.SENT_EMAIL,
+//     userId,
+//   });
+//   return result;
+// };
+
+export const sendRsvpEmailAction = userId => async dispatch => {
+  const sendEmail = firebase.functions().httpsCallable('sendRsvpEmail');
   dispatch({
     type: ACTION.SENDING_EMAIL,
     userId,
   });
 
   const result = await sendEmail({ userId }).catch(err => console.log(err));
-  console.log('sendEmail', result);
+  console.log('sendRsvpEmail', result);
 
   dispatch({
     type: ACTION.SENT_EMAIL,

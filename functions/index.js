@@ -4,6 +4,7 @@ const admin = require('firebase-admin');
 const cors = require('cors')({ origin: true });
 const nodemailer = require('nodemailer');
 const { getEmail } = require('./templates/saveTheDate');
+const { getRsvpEmail } = require('./templates/rsvp');
 const { getLocationInfo } = require('./getLocationInfo');
 
 const serviceAccountPath = './function-config.json';
@@ -53,6 +54,36 @@ module.exports.sendEmail = functions.https.onRequest((req, res) => {
       });
     } catch (err) {
       console.log('sendEmail', err);
+    }
+    return res.json(data);
+  });
+});
+
+module.exports.sendRsvpEmail = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    const { userId } = req.body.data;
+    const data = { data: { err: 'sent', success: true } };
+    try {
+      const ref = db.collection('users').doc(userId);
+      const doc = await ref.get();
+      const data1 = doc.data();
+      const mailOptions = {
+        from: 'Tariq & Irina <info@nearlywedded.com>',
+        to: 'tic084@gmail.com',
+        subject: 'Tariq & Irina are getting married - September 4th 2020',
+        html: getRsvpEmail({ id: doc.id, name: data1.name }),
+      };
+
+      return transporter.sendMail(mailOptions, (err, info) => {
+        if (err) {
+          data.data.err = `err: ${err.toString()}`;
+          data.data.success = false;
+          return res.json(data);
+        }
+        return res.json(data);
+      });
+    } catch (err) {
+      console.log('sendRsvpEmail', err);
     }
     return res.json(data);
   });
