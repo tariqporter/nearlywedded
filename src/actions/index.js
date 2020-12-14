@@ -143,15 +143,15 @@ export const setSaveDateSearchAction = saveDateSearch => {
 //   return result;
 // };
 
-export const sendRsvpEmailAction = userId => async dispatch => {
-  const sendEmail = firebase.functions().httpsCallable('sendRsvpEmail');
+export const sendEmailAction = userId => async dispatch => {
+  const sendEmail = firebase.functions().httpsCallable('sendEmail');
   dispatch({
     type: ACTION.SENDING_EMAIL,
     userId,
   });
 
   const result = await sendEmail({ userId }).catch(err => console.log(err));
-  console.log('sendRsvpEmail', result);
+  console.log('sendEmail', result);
 
   dispatch({
     type: ACTION.SENT_EMAIL,

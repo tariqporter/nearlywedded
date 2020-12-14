@@ -20,7 +20,7 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { Close, ExpandMore } from '@material-ui/icons';
-import { setSaveDateSearchAction, sendRsvpEmailAction } from '../../actions';
+import { setSaveDateSearchAction, sendEmailAction } from '../../actions';
 
 const useStyles = makeStyles(theme => ({
   flex: {
@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const RsvpViews = props => {
-  const { filterUsers, saveDateSearch, setSaveDateSearch, sendRsvpEmail, sendingEmailUserIds } = props;
+  const { filterUsers, saveDateSearch, setSaveDateSearch, sendEmail, sendingEmailUserIds } = props;
   const classes = useStyles();
   const saveDateSearchRef = useRef(null);
 
@@ -103,7 +103,7 @@ const RsvpViews = props => {
                     {sendingEmailUserIds.includes(user.id) ? (
                       <CircularProgress />
                     ) : (
-                      <Button onClick={() => sendRsvpEmail(user.id)}>Send Email</Button>
+                      <Button onClick={() => sendEmail(user.id)}>Send Email</Button>
                     )}
                   </TableCell>
                 </TableRow>
@@ -128,8 +128,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>
   bindActionCreators(
     {
       setSaveDateSearch: setSaveDateSearchAction,
-      // sendSaveDateEmail: sendSaveDateEmailAction,
-      sendRsvpEmail: sendRsvpEmailAction,
+      sendEmail: sendEmailAction,
     },
     dispatch
   );
