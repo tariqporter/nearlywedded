@@ -12,7 +12,7 @@
     "cors": "^2.8.5",
     "env-cmd": "^10.0.1",
     "eslint": "5.6.0",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "express-ip": "^1.0.3",
     "firebase": "^7.6.1",
     "firebase-admin": "^8.6.1",
